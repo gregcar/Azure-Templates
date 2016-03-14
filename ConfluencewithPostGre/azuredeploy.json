@@ -1,0 +1,151 @@
+﻿{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "hostingPlanName": {
+      "type": "string",
+      "defaultValue": "GCCon01",
+      "minLength": 1,
+      "metadata": {
+        "description": "Name of the hosting plan to use in Azure."
+      }
+    },
+    "webSiteName": {
+      "type": "string",
+      "defaultValue": "GCConfuence01",
+      "minLength": 1,
+      "metadata": {
+        "description": "Name of the Azure Web app to create."
+      }
+    },
+    "skuName": {
+      "type": "string",
+      "defaultValue": "S1",
+      "allowedValues": [
+        "F1",
+        "D1",
+        "B1",
+        "B2",
+        "B3",
+        "S1",
+        "S2",
+        "S3",
+        "P1",
+        "P2",
+        "P3",
+        "P4"
+      ],
+      "metadata": {
+        "description": "Describes app service plan's pricing tier and instance size. Check details at https://azure.microsoft.com/en-us/pricing/details/app-service/"
+      }
+    },
+    "skuCapacity": {
+      "type": "int",
+      "defaultValue": 1,
+      "minValue": 1,
+      "metadata": {
+        "description": "Describes app service plan's instance count"
+      }
+    },
+    "baseUrl": {
+      "type": "string",
+      "metadata": {
+        "artifactsBaseUrl": "",
+        "description": "URL to acquire other templates"
+      },
+      "defaultValue": "https://raw.githubusercontent.com/gregcar/ConfluencewithPostgreSQL"
+    },
+    "adminUsername": {
+      "type": "string",
+      "defaultValue": "superuser",
+      "metadata": {
+        "description": "User name for the Ubuntu Virtual Machine."
+      }
+    },
+    "adminPassword": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Password for the Ubuntu Virtual Machine."
+      }
+    },
+    "dnsNamePrefix": {
+      "type": "string",
+      "defaultValue": "GCConfluence",
+      "metadata": {
+        "description": "DNS Name for the publicly accessible node. Must be lowercase. It should match with the following regular expression: ^[a-z][a-z0-9-]{1,61}[a-z0-9]$ or it will raise an error."
+      }
+    },
+    "vmSize": {
+      "type": "string",
+      "defaultValue": "Standard_A1",
+      "allowedValues": [
+        "Standard_A1",
+        "Standard_A2",
+        "Standard_A3",
+        "Standard_D1",
+        "Standard_D3",
+        "Standard_D4"
+      ],
+      "metadata": {
+        "description": "The size of the virtual machines used when provisioning"
+      }
+    },
+    "ubuntuOSVersion": {
+      "type": "string",
+      "defaultValue": "14.04.2-LTS",
+      "allowedValues": [
+        "12.04.5-LTS",
+        "14.04.2-LTS",
+        "15.10"
+      ],
+      "metadata": {
+        "description": "The Ubuntu version for the VM. This will pick a fully patched image of this given Ubuntu version. Allowed values: 12.04.5-LTS, 14.04.2-LTS, 15.10."
+      }
+    },
+    "storageAccountName": {
+      "type": "string",
+      "defaultValue": "GCConfluenceStorage",
+      "metadata": {
+        "description": "Name of the storage account to create."
+      }
+    }
+  },
+  "variables": {
+    "addressPrefix": "10.0.0.0/16",
+    "apiVersion": "2015-06-15",
+    "imageOffer": "UbuntuServer",
+    "imagePublisher": "Canonical",
+    "nicName": "myVMNic",
+    "OSDiskName": "osdiskforlinuxsimple",
+    "publicIPAddressName": "myPublicIP",
+    "publicIPAddressType": "Dynamic",
+    "storageAccountName": "[concat(uniquestring(resourceGroup().id), '-confluence')]",
+    "storageAccountType": "Standard_LRS",
+    "subnetName": "Subnet",
+    "subnetPrefix": "10.0.0.0/24",
+    "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]",
+    "virtualNetworkName": "MyVNET",
+    "vmName": "MyubuntuVM",
+    "vmStorageAccountContainerName": "vhds",
+    "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
+    "storageAccountSetupURL": "[concat(parameters('baseUrl'),'/storageAccount.json')]",
+    "ubuntuPostgreSetupURL": "[concat(parameters('baseUrl'),'/ubuntu-postgre.json')]",
+    "vnetSetupURL": "[concat(parameters('baseUrl'),'/vnet.json')]",
+    "webbAppTomcatSetupURL": "[concat(parameters('baseUrl'),'/webApp-tomcat.json')]",
+    "parametersUrl": "[concat(parameters('baseUrl'),'/azuredeploy.parameters.json')]"
+  },
+  "resources": [
+    {
+      "apiVersion": "2015-08-01",
+      "name": "SetupWebApp",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "https://raw.githubusercontent.com/gregcar/ConfluencewithPostgreSQL/webApp-tomcat.json",
+          "contentVersion": "1.0.0.0"
+        }
+      }
+    }
+  ]
+}
