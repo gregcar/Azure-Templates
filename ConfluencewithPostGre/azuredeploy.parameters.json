@@ -3,13 +3,13 @@
    "contentVersion": "1.0.0.0",
    "parameters": {
       "hostingPlanName": {
-         "value": "GCCon01"
+         "value": "[parameters('hostingPlanName')]"
       },
       "webSiteName": {
-         "value": "GCConfluence01"
+         "value": "[parameters('webSiteName')]"
       },
        "skuName": {
-           "value": "S1"
+           "value": "[parameters('skuName')]"
        }
    }
 }
