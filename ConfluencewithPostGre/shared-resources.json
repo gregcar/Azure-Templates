@@ -20,6 +20,15 @@
         "Description": "The type of the Storage Account created"
       },
       "defaultValue": "Premium_LRS"
+    },
+    "virtualNetworkName": {
+      "type": "string"
+    },
+    "virtualNetworkAddressRange": {
+      "type": "string"
+    },
+    "subnets": {
+      "type": "array"
     }
   },
   "resources": [
@@ -39,6 +48,20 @@
       "location": "[parameters('location')]",
       "properties": {
         "accountType": "Standard_LRS"
+      }
+    },
+    {
+      "name": "[parameters('virtualNetworkName')]",
+      "type": "Microsoft.Network/virtualNetworks",
+      "location": "[parameters('location')]",
+      "apiVersion": "2015-06-15",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[parameters('virtualNetworkAddressRange')]"
+          ]
+        },
+        "subnets": "[parameters('subnets')]"
       }
     }
   ],

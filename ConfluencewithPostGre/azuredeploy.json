@@ -4,7 +4,6 @@
   "parameters": {
     "hostingPlanName": {
       "type": "string",
-      "defaultValue": "GCCon01",
       "minLength": 1,
       "metadata": {
         "description": "Name of the hosting plan to use in Azure."
@@ -12,7 +11,6 @@
     },
     "webSiteName": {
       "type": "string",
-      "defaultValue": "GCConfuence01",
       "minLength": 1,
       "metadata": {
         "description": "Name of the Azure Web app to create."
@@ -53,7 +51,7 @@
         "artifactsBaseUrl": "",
         "description": "URL to acquire other templates"
       },
-      "defaultValue": "https://raw.githubusercontent.com/gregcar/ConfluencewithPostgreSQL"
+      "defaultValue": "https://raw.githubusercontent.com/gregcar/Azure-Templates/master/ConfluencewithPostGre"
     },
     "adminUsername": {
       "type": "string",
@@ -131,19 +129,23 @@
     "storageAccountSetupURL": "[concat(parameters('baseUrl'),'/storageAccount.json')]",
     "ubuntuPostgreSetupURL": "[concat(parameters('baseUrl'),'/ubuntu-postgre.json')]",
     "vnetSetupURL": "[concat(parameters('baseUrl'),'/vnet.json')]",
-    "webbAppTomcatSetupURL": "[concat(parameters('baseUrl'),'/webApp-tomcat.json')]",
+    "webAppTomcatSetupURL": "[concat(parameters('baseUrl'),'/webApp-tomcat.json')]",
     "parametersUrl": "[concat(parameters('baseUrl'),'/azuredeploy.parameters.json')]"
   },
   "resources": [
     {
-      "apiVersion": "2015-08-01",
+      "apiVersion": "2015-01-01",
       "name": "SetupWebApp",
       "type": "Microsoft.Resources/deployments",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "https://raw.githubusercontent.com/gregcar/ConfluencewithPostgreSQL/webApp-tomcat.json",
+          "uri": "[variables('webAppTomcatSetupURL')]",
           "contentVersion": "1.0.0.0"
+        },
+        "parametersLink": { 
+          "uri":"[variables('parametersUrl')]",
+          "contentVersion":"1.0.0.0"
         }
       }
     }
