@@ -105,7 +105,7 @@
                         "displayName": "webDeploy"
                     },
                     "properties": {
-                        "packageUri": "https://gregcar.blob.core.windows.net/public/atlassian-confluence-5.9.6.zip",
+                        "packageUri": "https://gregcar.blob.core.windows.net/public/atlassian-confluence-5.9.6/webapps.zip",
                         "dbType": "None"
                     }
                 }
