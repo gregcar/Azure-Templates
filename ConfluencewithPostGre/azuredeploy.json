@@ -144,10 +144,18 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-           "hostingPlanName":{"value": "[parameters('hostingPlanName')"},
-           "webSiteName":{"value": "[parameters('webSiteName')]"},
-           "skuName":{"value": "[parameters('skuName')]"},
-           "skuCapacity":{"value": "[parameters('skuCapacity')]"}
+           "hostingPlanName": {
+               "value": "[parameters('hostingPlanName')"
+               },
+           "webSiteName":{
+               "value": "[parameters('webSiteName')]"
+               },
+           "skuName":{
+               "value": "[parameters('skuName')]"
+               },
+           "skuCapacity":{
+               "value": "[parameters('skuCapacity')]"
+               }
         }
       }
     }
