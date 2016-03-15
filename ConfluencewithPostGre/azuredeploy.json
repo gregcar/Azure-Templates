@@ -18,7 +18,7 @@
     },
     "skuName": {
       "type": "string",
-      "defaultValue": "S1",
+      "defaultValue": "P1",
       "allowedValues": [
         "F1",
         "D1",
@@ -144,18 +144,10 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-           "hostingPlanName": {
-               "value": "[parameters('hostingPlanName')"
-               },
-           "webSiteName":{
-               "value": "[parameters('webSiteName')]"
-               },
-           "skuName":{
-               "value": "[parameters('skuName')]"
-               },
-           "skuCapacity":{
-               "value": "[parameters('skuCapacity')]"
-               }
+           "hostingPlanName":{"value": "[parameters('hostingPlanName')]"},
+           "webSiteName":{"value": "[parameters('webSiteName')]"},
+           "skuName":{"value": "[parameters('skuName')]"},
+           "skuCapacity":{"value": "[parameters('skuCapacity')]"}
         }
       }
     }
