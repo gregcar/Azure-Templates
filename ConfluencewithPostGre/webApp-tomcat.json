@@ -106,11 +106,7 @@
                     },
                     "properties": {
                         "packageUri": "https://gregcar.blob.core.windows.net/public/atlassian-confluence-5.9.6.zip",
-                        "dbType": "None",
-                        "connectionString":"",
-                        "setParameters": {
-                            "Application Path": "[parameters('siteName')]"
-                        }
+                        "dbType": "None"
                     }
                 }
             ]
