@@ -6,12 +6,13 @@
             "type":"string",
             "defaultValue": "westus"
         },
+        "virtualMachine_adminUsername": {
+            "type": "string"
+        },   
         "virtualMachine_adminPassword": {
             "defaultValue": null,
             "type": "securestring"
-        },"virtualMachine_adminUsername": {
-            "type": "string"
-        },        
+        },     
         "virtualMachine_name": {
             "type": "string"
         },
@@ -169,10 +170,7 @@
                     "dnsServers": []
                 },
                 "enableIPForwarding": false
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetwork_name'))]"
-            ]
+            }
         },
         {
             "comments": "",
