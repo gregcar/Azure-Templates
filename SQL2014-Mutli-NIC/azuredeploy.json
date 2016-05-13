@@ -116,14 +116,14 @@
                     "dataDisks": []
                 },
                 "osProfile": {
-                    "computerName": "[parameters('virtualMachines_gc_cenovussql03_name')]",
+                    "computerName": "[parameters('virtualMachine_name')]",
                     "adminUsername": "greg",
                     "windowsConfiguration": {
                         "provisionVMAgent": true,
                         "enableAutomaticUpdates": true
                     },
                     "secrets": [],
-                    "adminPassword": "[parameters('virtualMachines_gc_cenovussql03_adminPassword')]"
+                    "adminPassword": "[parameters('virtualMachine_adminPassword')]"
                 },
                 "networkProfile": {
                     "networkInterfaces": [
@@ -131,13 +131,13 @@
                             "properties": {
                                 "primary": true
                             },
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_VNIC_gc_cenovussql03_01_name'))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_nic01_name'))]"
                         },
                         {
                             "properties": {
                                 "primary": false
                             },
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_VNIC_gc_cenovussql03_02_name'))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_nic02_name'))]"
                         }
                     ]
                 }
