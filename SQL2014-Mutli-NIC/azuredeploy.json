@@ -170,7 +170,8 @@
                     "dnsServers": []
                 },
                 "enableIPForwarding": false
-            }
+            } ,
+            "dependsOn": []
         },
         {
             "comments": "",
@@ -194,10 +195,8 @@
                     "dnsServers": []
                 },
                 "enableIPForwarding": false
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetwork_name'))]"
-            ]
+            } ,
+            "dependsOn": []
         },
         {
             "comments": "",
