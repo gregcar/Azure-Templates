@@ -2,11 +2,88 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "existingVirtualMachineName": {
+        "resourceLocation": {
+            "type":"string",
+            "defaultValue": "westus"
+        },
+        "virtualMachine_adminPassword": {
+            "defaultValue": null,
+            "type": "securestring"
+        },"virtualMachine_adminUsername": {
+            "type": "string"
+        },        
+        "virtualMachine_name": {
+            "type": "string"
+        },
+        "virtualMachine_size": {
             "type": "string",
             "metadata": {
-                "description": "Existing SQL Server virtual machine name"
-            }
+                "description": "Virtual Machine Size"
+            },
+            "allowedValues": [
+                "Standard_D2",
+                "Standard_D3",
+                "Standard_D4",
+                "Standard_D11",
+                "Standard_D12",
+                "Standard_D13",
+                "Standard_D14", 
+                "Standard_D2_v2",
+                "Standard_D3_v2",
+                "Standard_D4_v2",
+                "Standard_D5_v2",
+                "Standard_D11_v2",
+                "Standard_D12_v2",
+                "Standard_D13_v2",
+                "Standard_D14_v2",
+                "Standard_D15_v2",
+                "Standard_DS2",
+                "Standard_DS3",
+                "Standard_DS4",
+                "Standard_DS11",
+                "Standard_DS12",
+                "Standard_DS13",
+                "Standard_DS14", 
+                "Standard_DS2_v2",
+                "Standard_DS3_v2",
+                "Standard_DS4_v2",
+                "Standard_DS5_v2",
+                "Standard_DS11_v2",
+                "Standard_DS12_v2",
+                "Standard_DS13_v2",
+                "Standard_DS14_v2",
+                "Standard_DS15_v2"
+            ],
+            "defaultValue": "Standard_D3_v2"
+        },
+        "imageReference_sku" : {
+            "type": "string",
+            "metadata": {
+                "description" : "SQL Server Edition"
+            },
+            "allowedValues": [
+                "Standard",
+                "Enterprise"
+            ],
+            "defaultValue": "Enterprise"
+        },
+        "networkInterfaces_nic01_name": {
+            "type": "string"
+        },
+        "networkInterfaces_nic02_name": {
+            "type": "string"
+        },
+        "virtualNetwork_name": {
+            "type": "string"
+        },
+        "networkInterfaces_nic01_namesubnet_name" : {
+            "type": "string"
+        },
+        "networkInterfaces_nic02_namesubnet_name":{
+            "type": "string"
+        },
+        "storageAccount_name": {
+            "type": "string"
         },
         "sqlAutobackupRetentionPeriod": {
             "type": "string",
@@ -152,6 +229,132 @@
     },
     "resources": [
         {
+            "comments": "",
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "[parameters('virtualMachine_name')]",
+            "apiVersion": "2015-06-15",
+            "location": "[parameters('resourceLocation')]",
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "[parameters('virtualMachine_size')]"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "MicrosoftSQLServer",
+                        "offer": "SQL2014SP1-WS2012R2",
+                        "sku": "[parameters('imageReference_sku')]",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "name": "[concat('OSDisk-', parameters('virtualMachine_name'))]",
+                        "createOption": "FromImage",
+                        "vhd": {
+                            "uri": "[concat('https', '://', parameters('storageAccount_name'), '.blob.core.windows.net', concat('/vhds/', parameters('virtualMachine_name'),'.vhd'))]"
+                        },
+                        "caching": "ReadWrite"
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "[parameters('virtualMachines_gc_cenovussql03_name')]",
+                    "adminUsername": "greg",
+                    "windowsConfiguration": {
+                        "provisionVMAgent": true,
+                        "enableAutomaticUpdates": true
+                    },
+                    "secrets": [],
+                    "adminPassword": "[parameters('virtualMachines_gc_cenovussql03_adminPassword')]"
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "properties": {
+                                "primary": true
+                            },
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_VNIC_gc_cenovussql03_01_name'))]"
+                        },
+                        {
+                            "properties": {
+                                "primary": false
+                            },
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_VNIC_gc_cenovussql03_02_name'))]"
+                        }
+                    ]
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccount_name'))]",
+                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_nic01_name'))]",
+                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_nic02_name'))]"
+            ]
+        },
+        {
+            "comments": "",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_nic01_name')]",
+            "apiVersion": "2015-06-15",
+            "location": "[parameters('resourceLocation')]",
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetwork_name')), '/subnets/', parameters('networkInterfaces_nic01_namesubnet_name'))]"
+                            }
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetwork_name'))]"
+            ]
+        },
+        {
+            "comments": "",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_nic02_name')]",
+            "apiVersion": "2015-06-15",
+            "location": "[parameters('resourceLocation')]",
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetwork_name')), '/subnets/', parameters('networkInterfaces_nic02_namesubnet_name'))]"
+                            }
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetwork_name'))]"
+            ]
+        },
+        {
+            "comments": "",
+            "type": "Microsoft.Storage/storageAccounts",
+            "name": "[parameters('storageAccount_name')]",
+            "apiVersion": "2015-06-15",
+            "location": "[parameters('resourceLocation')]",
+            "tags": {},
+            "properties": {
+                "accountType": "Standard_LRS"
+            },
+            "dependsOn": []
+        },
+        {
             "apiVersion": "2015-06-15",
             "type": "Microsoft.Compute/virtualMachines/extensions",
             "name": "[concat(parameters('existingVirtualMachineName'), '/SqlIaasExtension')]",
@@ -173,7 +376,10 @@
                     "StorageAccessKey": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('sqlAutobackupStorageAccountName')), '2015-06-15').key1]",
                     "Password": "[parameters('sqlAutobackupEncryptionPassword')]"
                 }
-            }
+            }, 
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('virtualMachine_name'))]"
+                ]
         },
         {
             "apiVersion": "2015-06-15",
@@ -194,7 +400,9 @@
                         "MaintenanceWindowDuration": "[parameters('sqlAutopatchingWindowDuration')]"
                     }
                 }
-            }
+            }, "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('virtualMachine_name'))]"
+                ]
         },
         {
             "apiVersion": "2015-06-15",
@@ -219,7 +427,10 @@
                         "ServicePrincipalSecret": "[parameters('servicePrincipalSecret')]"
                     }
                 }
-            }
+            }, 
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('virtualMachine_name'))]"
+                ]
           }
     ],
     "outputs": {}

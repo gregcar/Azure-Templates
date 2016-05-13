@@ -2,8 +2,40 @@
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-        "existingVirtualMachineName": {
-            "value": "myExistingVirtualMachineName"
+        "resourceLocation": {
+            "value": "westus"
+        },
+        "virtualMachine_adminPassword": {
+            "value": "GEN-PASSWORD"
+        },"virtualMachine_adminUsername": {
+            "value": "machine username"
+        },        
+        "virtualMachine_name": {
+            "value": "vm name"
+        },
+        "virtualMachine_size": {
+            "value": "Standard_D3_v2"
+        },
+        "imageReference_sku" : {
+            "value": "Enterprise"
+        },
+        "networkInterfaces_nic01_name": {
+            "value" : ""
+        },
+        "networkInterfaces_nic02_name": {
+            "value" : ""
+        },
+        "virtualNetwork_name": {
+            "value" : ""
+        },
+        "networkInterfaces_nic01_namesubnet_name" : {
+            "value" : ""
+        },
+        "networkInterfaces_nic02_namesubnet_name":{
+            "value" : ""
+        },
+        "storageAccount_name": {
+            "value" : ""
         },
         "sqlAutobackupRetentionPeriod": { 
             "value": "20"
