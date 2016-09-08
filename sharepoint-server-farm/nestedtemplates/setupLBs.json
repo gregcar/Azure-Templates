@@ -67,6 +67,9 @@
     },
     "sqllbFEConfigID": {
       "type": "string"
+    },
+    "sqllbProbeID" : {
+      "type": "string"
     }
   },
   "resources": [
