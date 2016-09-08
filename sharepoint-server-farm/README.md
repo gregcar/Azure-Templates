@@ -1,17 +1,17 @@
-# Create a High Availabilty SharePoint Farm with 9 VMs using the Powershell DSC Extension
+# Create a SharePoint Farm with 4 VMs using the Powershell DSC Extension
 
-This template will create a SQL Server 2014 Always On Availability Group using the PowerShell DSC Extension it creates the following resources:
+This template will create a SharePoint 2016 non-HA farm using the PowerShell DSC Extension it creates the following resources:
 
 +	A Virtual Network
 +	Three Storage Accounts one is used for AD VMs, one for SQL Server VMs and one for SP VMs
 +	Three external and one internal load balancers
 +	A NAT Rule to allow RDP to one VM which can be used as a jumpbox, a load balancer rule for ILB for a SQL Listener, a load balancer rule for HTTP traffic on port 80 for SharePoint and a NAT rule for Sharepoint Central Admin access
 + 	Three public IP addresses, one for RDP access, one for the SharePoint site and one for SharePoint Central Admin.
-+	Two VMs as Domain Controllers for a new Forest and Domain
-+	Two VMs in a Windows Server Cluster running SQL Server 2014 with an availability group, an additional VM acts as a File Share Witness for the Cluster
-+	Two SharePoint App Servers
-+	Two SharePoint Web Servers
-+	Four Availability Sets one for the AD VMs, one for the SQL and Witness VMs, one for the SharePoint App Servers and one for the SharePoint Web Servers the SQL\Witness Availability Set is configured with three Update Domains and three Fault Domains to ensure that quorum can always be attained.
++	One VM as Domain Controller for a new Forest and Domain
++	One running SQL Server 2014 with an availability group
++	One SharePoint App Server
++	One SharePoint Web Server
++	Four Availability Sets one for the AD VM, one for the SQL, one for the SharePoint App Servers and one for the SharePoint Web Servers.
 
 ## Notes
 
@@ -42,11 +42,8 @@ This template will create a SQL Server 2014 Always On Availability Group using t
 ```
 
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fazure-quickstart-templates%2Fmaster%2Fsharepoint-server-farm-ha%2Fazuredeploy.json" target="_blank">
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgregcar%2FAzure-Templates%2Fmaster%2Fsharepoint-server-farm%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
-</a>
-<a href="http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fazure-quickstart-templates%2Fmaster%2Fsharepoint-server-farm-ha%2Fazuredeploy.json" target="_blank">
-    <img src="http://armviz.io/visualizebutton.png"/>
 </a>
 
 ## Notable Variables
@@ -55,20 +52,18 @@ This template will create a SQL Server 2014 Always On Availability Group using t
 |:---|:---------------------|
 |virtualNetworkName|Name of the Virtual Network|
 |adPDCVMName|The name of the Primary Domain Controller|
-|adBDCVMName|The name of the Backup\Second Domain Controller|
-|sqlVMName|The prefix for the SQL VM Names|
-|sqlwVMName|The name of the File Share Witness|
-|spwebVMName|The Prefix of the SharePoint Web Server VMs|
-|spappVMName|The Prefix of the SharePoint App Server VMs|
-|windowsImagePublisher|The name of the pulisher of the AD and Witness Image|
-|windowsImageOffer|The Offer Name for the Image used by AD and Witness VMs|
-|windowsImageSKU|The Image SKU for the AD and Witness Image|
+|sqlVMName|The prefix for the SQL VM Name|
+|spwebVMName|The Prefix of the SharePoint Web Server VM|
+|spappVMName|The Prefix of the SharePoint App Server VM|
+|windowsImagePublisher|The name of the pulisher of the AD Image|
+|windowsImageOffer|The Offer Name for the Image used by AD VM|
+|windowsImageSKU|The Image SKU for the AD Image|
 |sqlImagePublisher|The name of the pulisher of the SQL Image|
 |sqlImageOffer|The Offer Name for the Image used by SQL|
 |sqlImageSKU|The Image SKU for the SQL Image|
 |spImagePublisher|The name of the pulisher of the SharePoint Image|
 |spImageOffer|The Offer Name for the Image used by SharePoint|
 |spImageSKU|The Image SKU for the SharePoint Image|
-|windowsDiskSize|The size of the VHD allocated for AD and Witness VMs Data Disk|
-|sqlDiskSize|The size of the the VHD allocated for SQL VMs Data and Log Disks|
+|windowsDiskSize|The size of the VHD allocated for AD VM Data Disk|
+|sqlDiskSize|The size of the the VHD allocated for SQL VM Data and Log Disks|
 |spDiskSize|The size of the VHD allocated for the SP VMs Data Disk|

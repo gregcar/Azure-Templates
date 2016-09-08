@@ -62,7 +62,7 @@
       "location": "[parameters('location')]",
       "copy": {
         "name": "spAppVMLoop",
-        "count": 2
+        "count": 1
       },
       "properties": {
         "hardwareProfile": {
@@ -129,7 +129,7 @@
       ],
       "copy": {
         "name": "spAppPrepareLoop",
-        "count": 2
+        "count": 1
       },
       "properties": {
         "publisher": "Microsoft.Powershell",
@@ -154,7 +154,7 @@
       "location": "[parameters('location')]",
       "copy": {
         "name": "spWebVMLoop",
-        "count": 2
+        "count": 1
       },
       "properties": {
         "hardwareProfile": {
@@ -221,7 +221,7 @@
       ],
       "copy": {
         "name": "spWebPrepareLoop",
-        "count": 2
+        "count": 1
       },
       "properties": {
         "publisher": "Microsoft.Powershell",

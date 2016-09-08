@@ -20,12 +20,6 @@
     "adRDPNATRuleID": {
       "type": "string"
     },
-    "adBDCNicName": {
-      "type": "string"
-    },
-    "adBDCNICIPAddress": {
-      "type": "string"
-    },
     "sqlVMName": {
       "type": "string"
     },
@@ -54,9 +48,6 @@
       "type": "string"
     },
     "spCANATRuleID": {
-      "type": "string"
-    },
-    "sqlwNicName": {
       "type": "string"
     }
   },
