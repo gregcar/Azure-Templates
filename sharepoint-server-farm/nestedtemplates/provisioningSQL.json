@@ -47,22 +47,19 @@
     "domainName": {
       "type": "string"
     },
-    "sqlAOPrepareModulesURL": {
+    "sqlDataDisk": {
       "type": "string"
     },
-    "sqlAOPrepareFunction": {
+    "sqlLogDisk": {
       "type": "string"
     },
-    "sqlwVMName": {
+    "sqlNicName": {
       "type": "string"
     },
-    "sqlwNicName": {
+    "sqlPrepareModulesURL": {
       "type": "string"
     },
-    "fswPreparationModulesURL": {
-      "type": "string"
-    },
-    "fswPreparationFunction": {
+    "sqlPreparationFunction": {
       "type": "string"
     },
     "DNSServer": {
@@ -73,29 +70,25 @@
     {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Compute/virtualMachines",
-      "name": "[concat(parameters('sqlVMName'), copyIndex())]",
+      "name": "[parameters('sqlVMName')]",
       "location": "[parameters('location')]",
-      "copy": {
-        "name": "sqlvirtualMachineLoop",
-        "count": 1
-      },
       "properties": {
         "hardwareProfile": {
           "vmSize": "[parameters('sqlVMSize')]"
         },
         "availabilitySet": {
-          "id": "[parameters('availabilitySet')]"
+          "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('sqlAvailabilitySetName'))]"
         },
         "osProfile": {
-          "computerName": "[concat(parameters('sqlVMName'), copyIndex())]",
+          "computerName": "[parameters('sqlVMName')]",
           "adminUsername": "[parameters('adminUsername')]",
           "adminPassword": "[parameters('adminPassword')]"
         },
         "storageProfile": {
           "imageReference": {
-            "publisher": "[parameters('sqlImagePublisher')]",
-            "offer": "[parameters('sqlImageOffer')]",
-            "sku": "[parameters('sqlImageSKU')]",
+            "publisher": "[parameters('windowsImagePublisher')]",
+            "offer": "[parameters('windowsImageOffer')]",
+            "sku": "[parameters('windowsImageSKU')]",
             "version": "latest"
           },
           "osDisk": {
@@ -111,20 +104,20 @@
               "vhd": {
                 "uri": "[concat(reference(resourceId('Microsoft.Storage/storageAccounts/', concat(parameters('storageAccountNamePrefix'), '2')), '2016-01-01').primaryEndpoints.blob, parameters('vmContainerName'),'/', parameters('sqlVMName'), copyIndex(), '-Data-1.vhd')]"
               },
-              "name": "[concat(parameters('sqlVMName'), copyIndex(),'-data-disk1')]",
+              "name": "[concat(parameters('sqlVMName'),'-data-disk1')]",
+              "createOption": "empty",
               "caching": "None",
-              "createOption": "Empty",
-              "diskSizeGB": "1000",
+              "diskSizeGB": 1000,
               "lun": 0
             },
             {
               "vhd": {
                 "uri": "[concat(reference(resourceId('Microsoft.Storage/storageAccounts/', concat(parameters('storageAccountNamePrefix'), '2')), '2016-01-01').primaryEndpoints.blob, parameters('vmContainerName'),'/', parameters('sqlVMName'), copyIndex(), '-log.vhd')]"
               },
-              "name": "[concat(parameters('sqlVMName'), copyIndex(),'-log-disk1')]",
+              "name": "[concat(parameters('sqlVMName'),'-log-disk1')]",
+              "createOption": "empty",
               "caching": "None",
-              "createOption": "Empty",
-              "diskSizeGB": "1000",
+              "diskSizeGB": 1000,
               "lun": 1
             }
           ]
@@ -132,25 +125,25 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces',concat(parameters('sqlVMName'), copyIndex(),'-nic'))]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces',parameters('sqlNicName'))]"
             }
           ]
         },
         "diagnosticsProfile": {
           "bootDiagnostics": {
             "enabled": "true",
-            "storageUri": "[concat(reference(resourceId('Microsoft.Storage/storageAccounts/', concat(parameters('storageAccountNamePrefix'), '4')), '2016-01-01').primaryEndpoints.blob)]"
+            "storageUri": "[concat('http://',parameters('storageAccountNamePrefix'),'2.blob.core.windows.net')]"
           }
         }
       }
     },
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(parameters('sqlVMName'), '0/SQLAOSetup')]",
+      "name": "[concat(parameters('sqlVMName'),'/CreateSQLServer')]",
       "apiVersion": "2015-06-15",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Compute/virtualMachines/', concat(parameters('sqlVMName'),'0'))]"
+        "[concat('Microsoft.Compute/virtualMachines/', parameters('sqlVMName'))]"
       ],
       "properties": {
         "publisher": "Microsoft.Powershell",
@@ -158,12 +151,13 @@
         "typeHandlerVersion": "2.17",
         "autoUpgradeMinorVersion": true,
         "settings": {
-          "modulesURL": "[parameters('sqlAOPrepareModulesURL')]",
-          "configurationFunction": "[parameters('sqlAOPrepareFunction')]",
-          "properties": {
-            "DNSServer": "[parameters('DNSServer')]"
+          "ModulesUrl": "[parameters('sqlPrepareModulesURL')]",
+          "ConfigurationFunction": "[parameters('sqlPreparationFunction')]",
+          "Properties": {
+                "DNSServer": "[parameters('DNSServerAddress')]"
           }
-        }
+        },
+        "protectedSettings": null
       }
     }
   ],

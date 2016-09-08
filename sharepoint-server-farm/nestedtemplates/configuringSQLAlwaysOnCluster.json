@@ -38,18 +38,6 @@
     "sharePointSetupUserAccountPassword": {
       "type": "securestring"
     },
-    "configureClusterModulesURL": {
-      "type": "string"
-    },
-    "configureClusterConfigurationFunction": {
-      "type": "string"
-    },
-    "clusterName": {
-      "type": "string"
-    },
-    "sharePath": {
-      "type": "string"
-    },
     "sqlAOAGName": {
       "type": "string"
     },
@@ -76,36 +64,7 @@
     }
   },
   "resources": [
-    {
-      "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(parameters('sqlwVMName'),'/CreateFileShareWitness')]",
-      "apiVersion": "2015-06-15",
-      "location": "[parameters('location')]",
-      "properties": {
-        "publisher": "Microsoft.Powershell",
-        "type": "DSC",
-        "typeHandlerVersion": "2.17",
-        "autoUpgradeMinorVersion": true,
-        "settings": {
-          "modulesURL": "[parameters('fswConfigurationModulesURL')]",
-          "wmfVersion": "4.0",
-          "configurationFunction": "[parameters('fswConfigurationFunction')]",
-          "properties": {
-            "domainName": "[parameters('domainName')]",
-            "adminCreds": {
-              "userName": "[parameters('adminUserName')]",
-              "password": "privateSettingsRef:adminPassword"
-            }
-          }
-        },
-        "protectedSettings": {
-          "items": {
-            "adminPassword": "[parameters('adminPassword')]"
-          }
-        }
-      }
-    },
-    {
+        {
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "name": "[concat(parameters('sqlVMName'),'0/SQLAOSetup')]",
       "apiVersion": "2015-06-15",
