@@ -881,7 +881,7 @@
             "value": "[parameters('domainName')]"
           },
           "sqlPrepareModulesURL": {
-            "value": "[concat(variables('assetLocation'),'/PrepareSqlServer.ps1.zip')]"
+            "value": "[concat(parameters('_artifactsLocation'),'/','dscv2','/','PrepareSqlServer.ps1.zip', parameters('_artifactsLocationSasToken'))]"
           },
           "sqlPreparationFunction": {
             "value": "PrepareSqlServer.ps1\\PrepareSqlServer"
@@ -924,8 +924,8 @@
           "domainName": {
             "value": "[parameters('domainName')]"
           },
-            "sqlConfgureModulesURL": {
-            "value": "[concat(variables('assetLocation'),'/ConfigureSqlServer.ps1.zip')]"
+          "sqlConfgureModulesURL": {
+            "value": "[concat(parameters('_artifactsLocation'),'/','dscv2','/','ConfigureSqlServer.ps1.zip', parameters('_artifactsLocationSasToken'))]"
           },
           "sqlConfigurationFunction": {
             "value": "ConfigureSqlServer.ps1\\ConfigureSqlServer"
