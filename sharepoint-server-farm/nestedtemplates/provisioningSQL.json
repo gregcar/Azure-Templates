@@ -47,12 +47,6 @@
     "domainName": {
       "type": "string"
     },
-    "sqlDataDisk": {
-      "type": "string"
-    },
-    "sqlLogDisk": {
-      "type": "string"
-    },
     "sqlNicName": {
       "type": "string"
     },
@@ -105,9 +99,9 @@
                 "uri": "[concat(reference(resourceId('Microsoft.Storage/storageAccounts/', concat(parameters('storageAccountNamePrefix'), '2')), '2016-01-01').primaryEndpoints.blob, parameters('vmContainerName'),'/', parameters('sqlVMName'), copyIndex(), '-Data-1.vhd')]"
               },
               "name": "[concat(parameters('sqlVMName'),'-data-disk1')]",
-              "createOption": "empty",
+              "createOption": "Empty",
               "caching": "None",
-              "diskSizeGB": 1000,
+              "diskSizeGB": "1000",
               "lun": 0
             },
             {
@@ -115,9 +109,9 @@
                 "uri": "[concat(reference(resourceId('Microsoft.Storage/storageAccounts/', concat(parameters('storageAccountNamePrefix'), '2')), '2016-01-01').primaryEndpoints.blob, parameters('vmContainerName'),'/', parameters('sqlVMName'), copyIndex(), '-log.vhd')]"
               },
               "name": "[concat(parameters('sqlVMName'),'-log-disk1')]",
-              "createOption": "empty",
+              "createOption": "Empty",
               "caching": "None",
-              "diskSizeGB": 1000,
+              "diskSizeGB": "1000",
               "lun": 1
             }
           ]
