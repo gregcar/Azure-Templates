@@ -941,15 +941,6 @@
           },
           "sharePointSetupUserAccountPassword": {
             "value": "[parameters('sharePointSetupUserAccountPassword')]"
-          },
-          "sqlLBName": {
-            "value": "[variables('lbSettings').sqlLBName]"
-          },
-          "sqlLBIPAddress": {
-            "value": "[parameters('sqlLBIPAddress')]"
-          },
-          "adPDCVMName": {
-            "value": "[variables('vmSettings').adPDCVMName]"
           }
         }
       }
