@@ -16,7 +16,7 @@
         "group": "Infrastructure settings",
         "description": "The region to deploy the resources into. Only change if resources need to be deployed to a different location than the resource group."
       },
-      "defaultValue": "[resourceGroup().location]"
+      "defaultValue": "eastus"
     },
     "adminUsername": {
       "type": "string",
@@ -45,7 +45,7 @@
         "group": "Infrastructure settings",
         "description": "The type of storage account"
       },
-      "defaultValue": "Premium_LRS"
+      "defaultValue": "Standard_LRS"
     },
     "virtualNetworkName": {
       "type": "string",
@@ -102,7 +102,7 @@
         "group": "Active Directory settings",
         "description": "The size of the AD VMs created"
       },
-      "defaultValue": "Standard_DS1"
+      "defaultValue": "Standard_D1_v2"
     },
     "adPdcNicIPAddress": {
       "type": "string",
@@ -118,7 +118,7 @@
         "group": "SQL Server settings",
         "description": "The size of the SQL VMs created"
       },
-      "defaultValue": "Standard_DS3"
+      "defaultValue": "Standard_D3_v2"
     },
     "sqlServerServiceAccountUserName": {
       "type": "string",
@@ -207,7 +207,7 @@
         "group": "SharePoint Server settings",
         "description": "The size of the SP VMs Created"
       },
-      "defaultValue": "Standard_DS2"
+      "defaultValue": "Standard_D2_v2"
     },
     "sharePointSetupUserAccountUserName": {
       "type": "string",
