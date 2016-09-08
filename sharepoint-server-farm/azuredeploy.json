@@ -874,6 +874,12 @@
           "domainName": {
             "value": "[parameters('domainName')]"
           },
+          "sqlPrepareModulesURL": {
+            "value": "[concat(variables('assetLocation'),'/PrepareSqlServer.ps1.zip')]"
+          },
+          "sqlPreparationFunction": {
+            "value": "PrepareSqlServer.ps1\\PrepareSqlServer"
+          },
           "DNSServer": {
             "value": "[parameters('adPdcNicIPAddress')]"
           },
@@ -911,6 +917,12 @@
           },
           "domainName": {
             "value": "[parameters('domainName')]"
+          },
+            "sqlConfgureModulesURL": {
+            "value": "[concat(variables('assetLocation'),'/ConfigureSqlServer.ps1.zip')]"
+          },
+          "sqlConfigurationFunction": {
+            "value": "ConfigureSqlServer.ps1\\ConfigureSqlServer"
           },
           "sqlServerServiceAccountUserName": {
             "value": "[parameters('sqlServerServiceAccountUserName')]"
