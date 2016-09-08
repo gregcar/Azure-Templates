@@ -857,15 +857,6 @@
           "adminPassword": {
             "value": "[parameters('adminPassword')]"
           },
-          "windowsImagePublisher": {
-            "value": "[variables('vmSettings').windowsImagePublisher]"
-          },
-          "windowsImageOffer": {
-            "value": "[variables('vmSettings').windowsImageOffer]"
-          },
-          "windowsImageSKU": {
-            "value": "[variables('vmSettings').windowsImageSKU]"
-          },
           "vmContainerName": {
             "value": "[variables('vmSettings').vmContainerName]"
           },

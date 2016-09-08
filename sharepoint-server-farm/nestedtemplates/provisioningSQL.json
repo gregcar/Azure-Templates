@@ -23,15 +23,6 @@
     "adminPassword": {
       "type": "securestring"
     },
-    "windowsImagePublisher": {
-      "type": "string"
-    },
-    "windowsImageOffer": {
-      "type": "string"
-    },
-    "windowsImageSKU": {
-      "type": "string"
-    },
     "vmContainerName": {
       "type": "string"
     },
@@ -80,9 +71,9 @@
         },
         "storageProfile": {
           "imageReference": {
-            "publisher": "[parameters('windowsImagePublisher')]",
-            "offer": "[parameters('windowsImageOffer')]",
-            "sku": "[parameters('windowsImageSKU')]",
+            "publisher": "[parameters('sqlImagePublisher')]",
+            "offer": "[parameters('sqlImageOffer')]",
+            "sku": "[parameters('sqlImageSKU')]",
             "version": "latest"
           },
           "osDisk": {
