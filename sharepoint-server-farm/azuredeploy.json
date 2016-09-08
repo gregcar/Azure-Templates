@@ -881,7 +881,6 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
-        "Microsoft.Resources/deployments/UpdatingDNSwithBackupADVM",
         "Microsoft.Resources/deployments/ProvisioningSQLVirtualMachines"
       ],
       "properties": {
