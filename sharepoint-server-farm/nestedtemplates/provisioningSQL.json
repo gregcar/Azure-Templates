@@ -88,7 +88,7 @@
           "osDisk": {
             "name": "osdisk",
             "vhd": {
-              "uri": "[concat(reference(resourceId('Microsoft.Storage/storageAccounts/', concat(parameters('storageAccountNamePrefix'), '2')), '2016-01-01').primaryEndpoints.blob, parameters('vmContainerName'),'/',parameters('sqlVMName'), copyIndex(), '-osdisk.vhd')]"
+              "uri": "[concat(reference(resourceId('Microsoft.Storage/storageAccounts/', concat(parameters('storageAccountNamePrefix'), '2')), '2016-01-01').primaryEndpoints.blob, parameters('vmContainerName'),'/',parameters('sqlVMName'), '-osdisk.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -96,7 +96,7 @@
           "dataDisks": [
             {
               "vhd": {
-                "uri": "[concat(reference(resourceId('Microsoft.Storage/storageAccounts/', concat(parameters('storageAccountNamePrefix'), '2')), '2016-01-01').primaryEndpoints.blob, parameters('vmContainerName'),'/', parameters('sqlVMName'), copyIndex(), '-Data-1.vhd')]"
+                "uri": "[concat(reference(resourceId('Microsoft.Storage/storageAccounts/', concat(parameters('storageAccountNamePrefix'), '2')), '2016-01-01').primaryEndpoints.blob, parameters('vmContainerName'),'/', parameters('sqlVMName'), '-Data-1.vhd')]"
               },
               "name": "[concat(parameters('sqlVMName'),'-data-disk1')]",
               "createOption": "Empty",
@@ -106,7 +106,7 @@
             },
             {
               "vhd": {
-                "uri": "[concat(reference(resourceId('Microsoft.Storage/storageAccounts/', concat(parameters('storageAccountNamePrefix'), '2')), '2016-01-01').primaryEndpoints.blob, parameters('vmContainerName'),'/', parameters('sqlVMName'), copyIndex(), '-log.vhd')]"
+                "uri": "[concat(reference(resourceId('Microsoft.Storage/storageAccounts/', concat(parameters('storageAccountNamePrefix'), '2')), '2016-01-01').primaryEndpoints.blob, parameters('vmContainerName'),'/', parameters('sqlVMName'), '-log.vhd')]"
               },
               "name": "[concat(parameters('sqlVMName'),'-log-disk1')]",
               "createOption": "Empty",
