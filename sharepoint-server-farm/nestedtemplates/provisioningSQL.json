@@ -11,7 +11,7 @@
     "storageAccountNamePrefix": {
       "type": "string"
     },
-    "sqlAvailabilitySetName": {
+    "sqlAvailabilitySet": {
       "type": "string"
     },
     "sqlVMSize": {
@@ -71,7 +71,7 @@
           "vmSize": "[parameters('sqlVMSize')]"
         },
         "availabilitySet": {
-          "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('sqlAvailabilitySetName'))]"
+          "id": "[parameters('sqlAvailabilitySet')]"
         },
         "osProfile": {
           "computerName": "[parameters('sqlVMName')]",

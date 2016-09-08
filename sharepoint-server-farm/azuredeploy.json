@@ -844,7 +844,7 @@
           "storageAccountNamePrefix": {
             "value": "[parameters('storageAccountNamePrefix')]"
           },
-          "sqlAvailabilitySetName": {
+          "sqlAvailabilitySet": {
             "value": "[variables('ids').sqlAvailabilitySetName]"
           },
           "sqlVMSize": {
