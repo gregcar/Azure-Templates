@@ -997,7 +997,7 @@
             "value": "[concat(parameters('_artifactsLocation'),'/','dscv2','/','PrepareSharePointServer.ps1.zip', parameters('_artifactsLocationSasToken'))]"
           },
           "spPreparationFunction": {
-            "value": "PrepareSharePointServerHA.ps1\\PrepareSharePointServerHA"
+            "value": "PrepareSharePointServer.ps1\\PrepareSharePointServer"
           },
           "domainName": {
             "value": "[parameters('domainName')]"
@@ -1033,10 +1033,10 @@
             "value": "[parameters('location')]"
           },
           "spConfigurationModulesURL": {
-            "value": "[concat(parameters('_artifactsLocation'),'/','dscv2','/','ConfigureSharePointServerHA.ps1.zip', parameters('_artifactsLocationSasToken'))]"
+            "value": "[concat(parameters('_artifactsLocation'),'/','dscv2','/','ConfigureSharePointServer.ps1.zip', parameters('_artifactsLocationSasToken'))]"
           },
           "spConfigurationFunction": {
-            "value": "ConfigureSharePointServerHA.ps1\\ConfigureSharePointServerHA"
+            "value": "ConfigureSharePointServer.ps1\\ConfigureSharePointServer"
           },
           "domainName": {
             "value": "[parameters('domainName')]"
