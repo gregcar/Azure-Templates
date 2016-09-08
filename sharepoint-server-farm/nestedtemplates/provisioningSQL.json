@@ -11,7 +11,7 @@
     "storageAccountNamePrefix": {
       "type": "string"
     },
-    "availabilitySet": {
+    "sqlAvailabilitySetName": {
       "type": "string"
     },
     "sqlVMSize": {
