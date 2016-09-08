@@ -49,6 +49,9 @@
     },
     "spCANATRuleID": {
       "type": "string"
+    },
+    "sqlNicName": {
+      "type": "string"
     }
   },
   "resources": [
@@ -83,13 +86,13 @@
       }
     },
     {
-      "name": "[concat(parameters('sqlVMName'), copyIndex(),'-nic')]",
+      "name": "[parameters('sqlNicName')]",
       "type": "Microsoft.Network/networkInterfaces",
       "location": "[parameters('location')]",
       "apiVersion": "2015-06-15",
       "copy": {
         "name": "sqlnicLoop",
-        "count": 2
+        "count": 1
       },
       "properties": {
         "ipConfigurations": [
@@ -117,7 +120,7 @@
       "apiVersion": "2015-06-15",
       "copy": {
         "name": "spWebnicLoop",
-        "count": 2
+        "count": 1
       },
       "properties": {
         "ipConfigurations": [
@@ -162,25 +165,6 @@
                   "id": "[parameters('spCANATRuleID')]"
                 }
               ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "name": "[concat(parameters('spappVMName'),'1-nic')]",
-      "type": "Microsoft.Network/networkInterfaces",
-      "location": "[parameters('location')]",
-      "apiVersion": "2015-06-15",
-      "properties": {
-        "ipConfigurations": [
-          {
-            "name": "ipconfig1",
-            "properties": {
-              "privateIPAllocationMethod": "Dynamic",
-              "subnet": {
-                "id": "[parameters('spAppSubnetRef')]"
-              }
             }
           }
         ]

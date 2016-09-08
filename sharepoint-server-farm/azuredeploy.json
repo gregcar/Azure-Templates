@@ -319,6 +319,7 @@
     },
     "prefix": "[tolower(trim(subString(concat(parameters('dnsPrefix'),'           '),0,10)))]",
     "adPdcNicName": "[concat(variables('vmSettings').adPDCVMName,'-nic')]",
+    "sqlNicName": "[concat(variables('vmSettings').sqlVMName,'nic')]",
     "VnetID": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
     "staticSubnetRef": "[concat(variables('VnetID'),'/subnets/',variables('subnetNames').staticSubnetName)]",
     "sqlSubnetRef": "[concat(variables('VnetID'),'/subnets/',variables('subnetNames').sqlSubnetName)]",
@@ -706,6 +707,9 @@
           },
           "spCANATRuleID": {
             "value": "[variables('derivedIds').spCANATRuleID]"
+          },
+          "sqlNicName": {
+            "value": "[variables('sqlNicName')]"
           }
         }
       }
