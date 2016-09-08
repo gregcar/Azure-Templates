@@ -73,6 +73,9 @@
     },
     "sqllbProbeID" : {
       "type": "string"
+    },
+    "SQLProbe" : {
+      "type": "string"
     }
   },
   "resources": [
@@ -208,6 +211,17 @@
               "frontendPort": 1433,
               "backendPort": 1433,
               "enableFloatingIP": true
+            }
+          }
+        ],
+        "probes": [
+          {
+            "name": "[parameters('SQLProbe')]",
+            "properties": {
+              "protocol": "Tcp",
+              "port": 59999,
+              "intervalInSeconds": 5,
+              "numberOfProbes": 2
             }
           }
         ]

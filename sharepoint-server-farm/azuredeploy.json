@@ -643,6 +643,9 @@
           },
           "sqllbProbeID": {
             "value": "[variables('derivedIds').sqllbProbeID]"
+          },
+          "SQLProbe": {
+            "value": "[variables('SQLProbe')]"
           }
         }
       }
