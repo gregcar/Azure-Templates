@@ -35,11 +35,7 @@ This template will create a SharePoint 2016 non-HA farm using the PowerShell DSC
 	+	**Central Admin Website** - http://parameter(spCentralAdminDNSPrefix).parameter(location).cloudapp.azure.com
 	+	**RDP Jump Box** - mstsc -v parameter(rdpDNSPrefix).parameter(location).cloudapp.azure.com
 
-+ 	For this sample DSC packages need to be staged from 'dscv2' directory. For example:
-
-```PowerShell
-.\Deploy-AzureResourceGroup.ps1 -ResourceGroupLocation 'eastus' -ArtifactStagingDirectory '[foldername]' -DSCSourceFolder 'dscv2'  
-```
++ 	For this sample DSC packages need to be staged from 'dscv2' directory.
 
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fgregcar%2FAzure-Templates%2Fmaster%2Fsharepoint-server-farm%2Fazuredeploy.json" target="_blank">

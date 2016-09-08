@@ -49,7 +49,7 @@
     },
     "virtualNetworkName": {
       "type": "string",
-      "defaultValue": "spfarmhaVNET",
+      "defaultValue": "spfarmVNET",
       "metadata": {
         "group": "Infrastructure settings",
         "description": "Name of virtual network to be created"
