@@ -198,6 +198,9 @@
               "frontendIPConfiguration": {
                 "id": "[parameters('sqllbFEConfigID')]"
               },
+              "backendAddressPool": {
+                "id": "[parameters('sqllbBEConfigID')]"
+              },
               "probe": {
                 "id": "[parameters('sqllbProbeID')]"
               },
@@ -205,17 +208,6 @@
               "frontendPort": 1433,
               "backendPort": 1433,
               "enableFloatingIP": true
-            }
-          }
-        ],
-        "probes": [
-          {
-            "name": "[parameters('SQLAOProbe')]",
-            "properties": {
-              "protocol": "Tcp",
-              "port": 59999,
-              "intervalInSeconds": 5,
-              "numberOfProbes": 2
             }
           }
         ]

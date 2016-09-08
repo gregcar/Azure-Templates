@@ -285,7 +285,6 @@
     },
     "RDPNAT": "RDP",
     "spCANAT": "spCANAT",
-    "SQLAOProbe": "SQLAlwaysOnEndPointProbe",
     "spWebProbe": "spWebProbe",
     "rdpIPAddressName": "rdpIP",
     "vmSettings": {
