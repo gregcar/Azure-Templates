@@ -47,9 +47,6 @@
     "domainName": {
       "type": "string"
     },
-    "sqlNicName": {
-      "type": "string"
-    },
     "sqlPrepareModulesURL": {
       "type": "string"
     },
@@ -57,6 +54,9 @@
       "type": "string"
     },
     "DNSServer": {
+      "type": "string"
+    },
+    "sqlNicName": {
       "type": "string"
     }
   },
