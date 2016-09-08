@@ -994,7 +994,7 @@
             "value": "[parameters('storageAccountNamePrefix')]"
           },
           "spPreparationModulesURL": {
-            "value": "[concat(parameters('_artifactsLocation'),'/','dscv2','/','PrepareSharePointServerHA.ps1.zip', parameters('_artifactsLocationSasToken'))]"
+            "value": "[concat(parameters('_artifactsLocation'),'/','dscv2','/','PrepareSharePointServer.ps1.zip', parameters('_artifactsLocationSasToken'))]"
           },
           "spPreparationFunction": {
             "value": "PrepareSharePointServerHA.ps1\\PrepareSharePointServerHA"
