@@ -638,6 +638,9 @@
           "sqllbFEConfigID": {
             "value": "[variables('derivedIds').sqllbFEConfigID]"
           },
+          "sqlBEAddressPoolID": {
+            "value": "[variables('derivedIds').sqlBEAddressPoolID]"
+          },
           "sqllbProbeID": {
             "value": "[variables('derivedIds').sqllbProbeID]"
           }

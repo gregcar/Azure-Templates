@@ -68,6 +68,9 @@
     "sqllbFEConfigID": {
       "type": "string"
     },
+    "sqlBEAddressPoolID": {
+      "type": "string"
+    },
     "sqllbProbeID" : {
       "type": "string"
     }
@@ -190,13 +193,13 @@
         ],
         "loadBalancingRules": [
           {
-            "name": "SQLAlwaysOnEndPointListener",
+            "name": "SQLEndPointListener",
             "properties": {
               "frontendIPConfiguration": {
                 "id": "[parameters('sqllbFEConfigID')]"
               },
               "backendAddressPool": {
-                "id": "[parameters('sqllbBEConfigID')]"
+                "id": "[parameters('sqlBEAddressPoolID')]"
               },
               "probe": {
                 "id": "[parameters('sqllbProbeID')]"
