@@ -35,9 +35,6 @@
     "sqlServerServiceAccountUserName": {
       "type": "string"
     },
-    "sqlAOAGName": {
-      "type": "string"
-    },
     "administrationContentDatabaseName": {
       "type": "string"
     },

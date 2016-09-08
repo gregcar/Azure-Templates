@@ -283,6 +283,7 @@
       "spWebSubnetName": "spWebSubnet",
       "spAppSubnetName": "spAppSubnet"
     },
+    "SQLProbe": "SQLEndPointProbe",
     "RDPNAT": "RDP",
     "spCANAT": "spCANAT",
     "spWebProbe": "spWebProbe",
@@ -351,7 +352,8 @@
       "sqllbFEConfigID": "[concat(variables('ids').sqllbID,'/frontendIPConfigurations/',variables('lbSettings').sqlLBFE)]",
       "spCABEAddressPoolID": "[concat(variables('ids').spCAlbID,'/backendAddressPools/',variables('lbSettings').spCALBBE)]",
       "spCAlbFEConfigID": "[concat(variables('ids').spCAlbID,'/frontendIPConfigurations/',variables('lbSettings').spCALBFE)]",
-      "spCANATRuleID": "[concat(variables('ids').spCAlbID,'/inboundNatRules/',variables('spCANAT'))]"
+      "spCANATRuleID": "[concat(variables('ids').spCAlbID,'/inboundNatRules/',variables('spCANAT'))]",
+      "sqllbProbeID": "[concat(variables('ids').sqllbID,'/probes/',variables('SQLProbe'))]"
     },
     "subnets": [
       {
