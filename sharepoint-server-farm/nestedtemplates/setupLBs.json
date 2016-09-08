@@ -70,9 +70,6 @@
     },
     "sqllbProbeID": {
       "type": "string"
-    },
-    "SQLAOProbe": {
-      "type": "string"
     }
   },
   "resources": [
