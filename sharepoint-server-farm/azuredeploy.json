@@ -876,6 +876,9 @@
           },
           "DNSServer": {
             "value": "[parameters('adPdcNicIPAddress')]"
+          },
+          "sqlNicName": {
+            "value": "[variables('sqlNicName')]"
           }
         }
       }
