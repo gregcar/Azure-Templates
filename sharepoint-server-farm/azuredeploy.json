@@ -826,7 +826,8 @@
       "dependsOn": [
         "Microsoft.Resources/deployments/CreatingStorageAccounts",
         "Microsoft.Resources/deployments/CreatingNetworkInterfaces",
-        "Microsoft.Resources/deployments/CreatingAvailabilitySets"
+        "Microsoft.Resources/deployments/CreatingAvailabilitySets",
+        "Microsoft.Resources/deployments/UpdatingDNStoPrimaryADVM"
       ],
       "properties": {
         "mode": "Incremental",
@@ -946,13 +947,14 @@
       }
     },
     {
-      "name": "CreatingSharepointVirtualMachines",
+      "name": "ProvisioningSharePointVirtualMachines",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
         "Microsoft.Resources/deployments/CreatingStorageAccounts",
         "Microsoft.Resources/deployments/CreatingNetworkInterfaces",
-        "Microsoft.Resources/deployments/CreatingAvailabilitySets"
+        "Microsoft.Resources/deployments/CreatingAvailabilitySets",
+        "Microsoft.Resources/deployments/UpdatingDNStoPrimaryADVM",
       ],
       "properties": {
         "mode": "Incremental",
@@ -1016,12 +1018,12 @@
       }
     },
     {
-      "name": "ConfiguringSharepoint",
+      "name": "ConfiguringSharePoint",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
         "Microsoft.Resources/deployments/ConfiguringSQL",
-        "Microsoft.Resources/deployments/CreatingSharepointVirtualMachines"
+        "Microsoft.Resources/deployments/ProvisioningSharePointVirtualMachines"
       ],
       "properties": {
         "mode": "Incremental",
