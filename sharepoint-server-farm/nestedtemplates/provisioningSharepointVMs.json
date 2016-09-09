@@ -169,11 +169,11 @@
           "User": "[concat(parameters('domainName'), '\\', parameters('adminUsername'))]",
           "Restart": "true",
           "Options": "3"
-        }
-      },
+        },
         "protectedsettings": {
           "Password": "[parameters('adminPassword')]"
         }
+      }
     },
     {
       "apiVersion": "2015-06-15",
@@ -289,11 +289,11 @@
           "User": "[concat(parameters('domainName'), '\\', parameters('adminUsername'))]",
           "Restart": "true",
           "Options": "3"
-        }
-      },
+        },
         "protectedsettings": {
           "Password": "[parameters('adminPassword')]"
         }
+      }
     }
   ],
   "outputs": {}
