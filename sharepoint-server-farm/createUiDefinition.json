@@ -351,7 +351,7 @@
       "sqlServerServiceAccountPassword": "[steps('sqlConfig').sqlServerServiceAccountPassword.password]",
       "sharePointSetupUserAccountPassword": "[steps('spConfig').spSetupUserAccountPassword.password]",
       "sharePointFarmAccountPassword": "[steps('spConfig').spServerFarmAccountPassword.password]",
-      "sharePointFarmPassphrasePassword": "[steps('spConfig').spServerFarmPassphrase.password]",
+      "sharePointFarmPassphrasePassword": "[steps('spConfig').spServerFarmPassphrase.password]"
     }
   }
 }
