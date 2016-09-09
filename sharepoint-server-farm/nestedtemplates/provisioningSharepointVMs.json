@@ -153,7 +153,7 @@
       "apiVersion": "2015-06-15",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Compute/virtualMachines/extensions', concat(parameters('spappVMName'),copyIndex(),'/ConfigureSPAppServer'))]"
+        "[resourceId(concat('Microsoft.Compute/virtualMachines/extensions',parameters('spappVMName'),copyIndex(),'/ConfigureSPAppServer'))]"
       ],
       "copy": {
         "name": "spAppDomainLoop",
@@ -273,7 +273,7 @@
       "apiVersion": "2015-06-15",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Compute/virtualMachines/extensions', concat(parameters('spWebVMName'),copyIndex(),'/ConfigureSPWebServer'))]"
+        "[resourceId(concat('Microsoft.Compute/virtualMachines/extensions',parameters('spWebVMName'),copyIndex(),'/ConfigureSPWebServer'))]"
       ],
       "copy": {
         "name": "spWebDomainLoop",
