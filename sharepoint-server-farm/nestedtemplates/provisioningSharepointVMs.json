@@ -148,6 +148,34 @@
       }
     },
     {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(parameters('spappVMName'), copyIndex(),'/joindomain')]",
+      "apiVersion": "2015-06-15",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Compute/virtualMachines/extensions', concat(parameters('spappVMName'),copyIndex(),'/ConfigureSPAppServer'))]"
+      ],
+      "copy": {
+        "name": "spAppDomainLoop",
+        "count": 1
+      },
+      "properties": {
+        "publisher": "Microsoft.Compute",
+        "type": "JsonADDomainExtension",
+        "typeHandlerVersion": "1.3",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "Name": "[parameters('domainName')]",
+          "User": "[concat(parameters('domainName'), '\\', parameters('adminUsername'))]",
+          "Restart": "true",
+          "Options": "3"
+        }
+      },
+        "protectedsettings": {
+          "Password": "[parameters('adminPassword')]"
+        }
+    },
+    {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[concat(parameters('spwebVMName'), copyIndex())]",
@@ -238,6 +266,34 @@
           }
         }
       }
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(parameters('spwebVMName'), copyIndex(),'/joindomain')]",
+      "apiVersion": "2015-06-15",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Compute/virtualMachines/extensions', concat(parameters('spwebVMName'),copyIndex(),'/ConfigureSPWebServer'))]"
+      ],
+      "copy": {
+        "name": "spWebDomainLoop",
+        "count": 1
+      },
+      "properties": {
+        "publisher": "Microsoft.Compute",
+        "type": "JsonADDomainExtension",
+        "typeHandlerVersion": "1.3",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "Name": "[parameters('domainName')]",
+          "User": "[concat(parameters('domainName'), '\\', parameters('adminUsername'))]",
+          "Restart": "true",
+          "Options": "3"
+        }
+      },
+        "protectedsettings": {
+          "Password": "[parameters('adminPassword')]"
+        }
     }
   ],
   "outputs": {}
