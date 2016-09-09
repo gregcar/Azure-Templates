@@ -169,7 +169,7 @@
           "User": "[concat(parameters('domainName'), '\\', parameters('adminUsername'))]",
           "Restart": "true",
           "Options": "3"
-        },
+        }, 
         "protectedsettings": {
           "Password": "[parameters('adminPassword')]"
         }
@@ -269,11 +269,11 @@
     },
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(parameters('spwebVMName'), copyIndex(),'/joindomain')]",
+      "name": "[concat(parameters('spWebVMName'), copyIndex(),'/joindomain')]",
       "apiVersion": "2015-06-15",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Compute/virtualMachines/extensions', concat(parameters('spwebVMName'),copyIndex(),'/ConfigureSPWebServer'))]"
+        "[resourceId('Microsoft.Compute/virtualMachines/extensions', concat(parameters('spWebVMName'),copyIndex(),'/ConfigureSPWebServer'))]"
       ],
       "copy": {
         "name": "spWebDomainLoop",
@@ -289,7 +289,7 @@
           "User": "[concat(parameters('domainName'), '\\', parameters('adminUsername'))]",
           "Restart": "true",
           "Options": "3"
-        },
+        }, 
         "protectedsettings": {
           "Password": "[parameters('adminPassword')]"
         }
