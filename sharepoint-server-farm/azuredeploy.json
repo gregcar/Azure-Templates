@@ -997,7 +997,7 @@
             "value": "[concat(parameters('_artifactsLocation'),'/','dscv2','/','PrepareSharePointServer.ps1.zip', parameters('_artifactsLocationSasToken'))]"
           },
           "spPreparationFunction": {
-            "value": "PrepareSharePointServer.ps1\\PrepareSharePointServer"
+            "value": "PrepareSharePointServerHA.ps1\\PrepareSharePointServerHA"
           },
           "domainName": {
             "value": "[parameters('domainName')]"
