@@ -245,14 +245,6 @@
         "group": "SharePoint Server settings",
         "description": "The Sharepoint Farm Passphrase"
       }
-    },
-    "spSiteTemplateName": {
-      "type": "string",
-      "metadata": {
-        "group": "SharePoint Server settings",
-        "description": "The Sharepoint Content Site Template Name"
-      },
-      "defaultValue": "STS#0"
     }
   },
   "variables": {

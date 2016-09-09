@@ -327,49 +327,6 @@
             "constraints": {
               "required": true
             }
-          },
-          {
-            "name": "spSiteTemplateName",
-            "type": "Microsoft.Common.DropDown",
-            "label": "Content site template",
-            "defaultValue": "Team Site",
-            "constraints": {
-              "required": true,
-              "allowedValues": [
-                {
-                  "label": "Team Site",
-                  "value": "STS#0"
-                },
-                {
-                  "label": "Blank Site",
-                  "value": "STS#1"
-                },
-                {
-                  "label": "Document Workspace",
-                  "value": "STS#2"
-                },
-                {
-                  "label": "Document Workspace",
-                  "value": "STS#2"
-                },
-                {
-                  "label": "Basic Meeting Workspace",
-                  "value": "MPS#0"
-                },
-                {
-                  "label": "Decision Meeting Workspace",
-                  "value": "MPS#2"
-                },
-                {
-                  "label": "Wiki Site",
-                  "value": "WIKI#0"
-                },
-                {
-                  "label": "Central Admin Site",
-                  "value": "CENTRALADMIN#0"
-                }
-              ]
-            }
           }
         ]
       }
@@ -395,7 +352,6 @@
       "sharePointSetupUserAccountPassword": "[steps('spConfig').spSetupUserAccountPassword.password]",
       "sharePointFarmAccountPassword": "[steps('spConfig').spServerFarmAccountPassword.password]",
       "sharePointFarmPassphrasePassword": "[steps('spConfig').spServerFarmPassphrase.password]",
-      "spSiteTemplateName": "[steps('spConfig').spSiteTemplateName]"
     }
   }
 }
