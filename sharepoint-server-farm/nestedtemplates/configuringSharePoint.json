@@ -105,10 +105,6 @@
               "userName": "ignore",
               "password": "privateSettingsRef:sharePointFarmPassphrasePassword"
             },
-            "sqlServiceCreds": {
-              "userName": "[parameters('sqlServerServiceAccountUserName')]",
-              "password": "privateSettingsRef:sqlServerServiceAccountPassword"
-            },
             "databaseName": "[parameters('configDatabaseName')]",
             "databaseServer": "[concat(parameters('sqlVMName'),'.',parameters('domainName'))]",
             "administrationContentDatabaseName": "[parameters('administrationContentDatabaseName')]",            
