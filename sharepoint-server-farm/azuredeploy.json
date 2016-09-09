@@ -238,13 +238,6 @@
         "group": "SharePoint Server settings",
         "description": "The Sharepoint Farm account password"
       }
-    },
-    "sharePointFarmPassphrasePassword": {
-      "type": "securestring",
-      "metadata": {
-        "group": "SharePoint Server settings",
-        "description": "The Sharepoint Farm Passphrase"
-      }
     }
   },
   "variables": {
