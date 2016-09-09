@@ -243,9 +243,6 @@
   "variables": {
     "spCADNSPrefix": "[concat(parameters('dnsPrefix'),'admin')]",
     "spCAIPAddressName": "[concat(parameters('spWebIPAddressName'),'admin')]",
-    "configDatabaseName": "SP_Config",
-    "administrationContentDatabaseName": "SP_AdminContent",
-    "contentDatabaseName": "spfarm_Content",
     "lbSettings": {
       "rdpLBFE": "rdpLBFE",
       "sqlLBFE": "sqlLBFE",
