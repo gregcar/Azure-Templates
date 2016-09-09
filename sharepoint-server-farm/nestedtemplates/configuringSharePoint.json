@@ -111,10 +111,6 @@
             },
             "databaseName": "[parameters('configDatabaseName')]",
             "databaseServer": "[concat(parameters('sqlVMName'),'.',parameters('domainName'))]",
-            "databaseNames": [
-              "[parameters('administrationContentDatabaseName')]",
-              "[parameters('configDatabaseName')]"
-            ],
             "administrationContentDatabaseName": "[parameters('administrationContentDatabaseName')]",            
             "configuration": "[concat('{\"roles\":[{\"type\":\"application\",\"properties\":{\"fqdn\":\"',parameters('sharepointCAfqdn'),'\",\"port\":80}}],\"configureForHa\":\"True\",\"loadBalancedSetProbePort\":8088}')]"
           }
