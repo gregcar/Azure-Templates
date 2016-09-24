@@ -1,0 +1,182 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "type": "string"
+    },
+    "virtualNetworkName": {
+      "type": "string"
+    },
+    "subnets": {
+      "type": "object"
+    },
+    "webTierName": {
+      "type": "string"
+    },
+    "webLoadBalancerName": {
+      "type": "string"
+    },
+    "webTierNicPrefix": {
+      "type": "string"
+    },
+    "webTierNicCount": {
+      "type": "int"
+    },
+    "appTierName": {
+      "type": "string"
+    },
+    "appLoadBalancerName": {
+      "type": "string"
+    },
+    "appTierNicPrefix": {
+      "type": "string"
+    },
+    "appTierNicCount": {
+      "type": "int"
+    },
+    "databaseTierName": {
+      "type": "string"
+    },
+    "databaseLoadBalancerName": {
+      "type": "string"
+    },
+    "databaseTierNicPrefix": {
+      "type": "string"
+    },
+    "databaseTierNicCount": {
+      "type": "int"
+    }
+  },
+  "resources": [
+    {
+      "comments": "Web Tier Network Interfaces",
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "[concat(parameters('webTierNicPrefix'),copyIndex())]",
+      "apiVersion": "2016-03-30",
+      "tags": {
+        "displayName": "[parameters('webTierName')]"
+      },
+      "copy": {
+        "name": "webTierNICLoop",
+        "count": "[parameters('webTierNicCount')]"
+      },
+      "location": "[parameters('location')]",
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "[concat(parameters('webTierNicPrefix'),copyIndex(),'-ip-config')]",
+            "properties": {
+              "privateIPAddress": "",
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet": {
+                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName')), concat('/subnets/', parameters('subnets').frontEnd))]"
+              },
+              "loadBalancerBackendAddressPools": [
+                {
+                  "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('webLoadBalancerName'), '/backendAddressPools/', parameters('webLoadBalancerName'),'.AddressPool')]"
+                }
+              ],
+              "loadBalancerInboundNatRules": []
+            }
+          }
+        ],
+        "dnsSettings": {
+          "dnsServers": []
+        },
+        "enableIPForwarding": false
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
+        "[resourceId('Microsoft.Network/loadBalancers', parameters('webLoadBalancerName')]"
+      ]
+    },
+    {
+      "comments": "App Tier Network Interfaces",
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "[concat(parameters('appTierNicPrefix'),copyIndex())]",
+      "apiVersion": "2016-03-30",
+      "tags": {
+        "displayName": "[parameters('appTierName')]"
+      },
+      "copy": {
+        "name": "appTierNICLoop",
+        "count": "[parameters('appTierNicCount')]"
+      },
+      "location": "[parameters('location')]",
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "[concat(parameters('appTierNicPrefix'),copyIndex(),'-ip-config')]",
+            "properties": {
+              "privateIPAddress": "",
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet": {
+                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName')), concat('/subnets/', parameters('subnets').backEnd))]"
+              },
+              "loadBalancerBackendAddressPools": [
+                {
+                  "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('appLoadBalancerName'), '/backendAddressPools/', parameters('appLoadBalancerName'),'.AddressPool')]"
+                }
+              ],
+              "loadBalancerInboundNatRules": []
+            }
+          }
+        ],
+        "dnsSettings": {
+          "dnsServers": []
+        },
+        "enableIPForwarding": false
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
+        "[resourceId('Microsoft.Network/loadBalancers', parameters('appLoadBalancerName')]"
+      ]
+    },
+    {
+      "comments": "Database Tier Network Interfaces",
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "[concat(parameters('databaseTierNicPrefix'),copyIndex())]",
+      "apiVersion": "2016-03-30",
+      "tags": {
+        "displayName": "[parameters('databaseTierName')]"
+      },
+      "copy": {
+        "name": "databaseTierNICLoop",
+        "count": "[parameters('databaseTierNicCount')]"
+      },
+      "location": "[parameters('location')]",
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "[concat(parameters('databaseTierNicPrefix'),copyIndex(),'-ip-config')]",
+            "properties": {
+              "privateIPAddress": "",
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet": {
+                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName')), concat('/subnets/', parameters('subnets').database))]"
+              },
+              "loadBalancerBackendAddressPools": [
+                {
+                  "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('databaseLoadBalancerName'), '/backendAddressPools/', parameters('databaseLoadBalancerName'),'.AddressPool')]"
+                }
+              ],
+              "loadBalancerInboundNatRules": []
+            }
+          }
+        ],
+        "dnsSettings": {
+          "dnsServers": []
+        },
+        "enableIPForwarding": false
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
+        "[resourceId('Microsoft.Network/loadBalancers', parameters('databaseLoadBalancerName')]"
+      ]
+    }
+  ]
+}
