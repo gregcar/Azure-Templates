@@ -54,6 +54,9 @@
       "type": "int"
     }
   },
+  "variables": {
+    "webLoadBalancerId": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('webLoadBalancerName'))]"
+  },
   "resources": [
     {
       "comments": "Web Tier Network Interfaces",
@@ -80,7 +83,7 @@
               },
               "loadBalancerBackendAddressPools": [
                 {
-                  "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('webLoadBalancerName')), concat('/backendAddressPools/', parameters('webLoadBalancerName'),'.AddressPool'))]"
+                  "id": "[concat(variables('webLoadBalancerId'), '/backendAddressPools/', parameters('webLoadBalancerName'), '.AddressPool')]"
                 }
               ],
               "loadBalancerInboundNatRules": []
