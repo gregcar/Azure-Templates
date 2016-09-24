@@ -55,7 +55,7 @@
     }
   },
   "variables": {
-    "webLoadBalancerId": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('webLoadBalancerName'))]"
+    "webLoadBalancerId": "[resourceId('Microsoft.Network/loadBalancers', parameters('webLoadBalancerName')]"
   },
   "resources": [
     {
