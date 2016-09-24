@@ -67,7 +67,7 @@
     {
       "comments": "Web Tier Network Interfaces",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(parameters('webTierNicPrefix'),copyIndex())]",
+      "name": "[concat(parameters('webTierNicPrefix'),copyIndex(1))]",
       "apiVersion": "2016-03-30",
       "tags": {
         "displayName": "[parameters('webTierName')]"
@@ -80,7 +80,7 @@
       "properties": {
         "ipConfigurations": [
           {
-            "name": "[concat(parameters('webTierNicPrefix'),copyIndex(),'-ip-config')]",
+            "name": "[concat(parameters('webTierNicPrefix'),copyIndex(1),'-ip-config')]",
             "properties": {
               "privateIPAddress": "",
               "privateIPAllocationMethod": "Dynamic",
@@ -108,7 +108,7 @@
     {
       "comments": "App Tier Network Interfaces",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(parameters('appTierNicPrefix'),copyIndex())]",
+      "name": "[concat(parameters('appTierNicPrefix'),copyIndex(1))]",
       "apiVersion": "2016-03-30",
       "tags": {
         "displayName": "[parameters('appTierName')]"
@@ -121,7 +121,7 @@
       "properties": {
         "ipConfigurations": [
           {
-            "name": "[concat(parameters('appTierNicPrefix'),copyIndex(),'-ip-config')]",
+            "name": "[concat(parameters('appTierNicPrefix'),copyIndex(1),'-ip-config')]",
             "properties": {
               "privateIPAddress": "",
               "privateIPAllocationMethod": "Dynamic",
@@ -149,7 +149,7 @@
     {
       "comments": "Database Tier Network Interfaces",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat(parameters('databaseTierNicPrefix'),copyIndex())]",
+      "name": "[concat(parameters('databaseTierNicPrefix'),copyIndex(1))]",
       "apiVersion": "2016-03-30",
       "tags": {
         "displayName": "[parameters('databaseTierName')]"
@@ -162,7 +162,7 @@
       "properties": {
         "ipConfigurations": [
           {
-            "name": "[concat(parameters('databaseTierNicPrefix'),copyIndex(),'-ip-config')]",
+            "name": "[concat(parameters('databaseTierNicPrefix'),copyIndex(1),'-ip-config')]",
             "properties": {
               "privateIPAddress": "",
               "privateIPAllocationMethod": "Dynamic",
