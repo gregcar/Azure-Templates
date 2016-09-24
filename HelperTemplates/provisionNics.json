@@ -61,6 +61,18 @@
     },
     "databaseTierNicCount": {
       "type": "int"
+    },
+    "monitoringTierName": {
+      "type": "string"
+    },
+    "monitoringTierSubnetName": {
+      "type": "string"
+    },
+    "monitoringTierNicPrefix": {
+      "type": "string"
+    },
+    "monitoringPublicIPResourceId": {
+      "type": "string"
     }
   },
   "resources": [
@@ -174,6 +186,42 @@
                   "id": "[concat(parameters('databaseLoadBalancerResourceId'), '/backendAddressPools/', parameters('databaseLoadBalancerAddressPool'))]"
                 }
               ],
+              "loadBalancerInboundNatRules": []
+            }
+          }
+        ],
+        "dnsSettings": {
+          "dnsServers": []
+        },
+        "enableIPForwarding": false
+      },
+      "resources": [],
+      "dependsOn": [
+      ]
+    },
+    {
+      "comments": "Monitoring Tier Network Interfaces",
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "[concat(parameters('monitoringTierNicPrefix'),'1')]",
+      "apiVersion": "2016-03-30",
+      "tags": {
+        "displayName": "[parameters('monitoringTierName')]"
+      },
+      "location": "[parameters('location')]",
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "[concat(parameters('monitoringTierNicPrefix'),'1','-ip-config')]",
+            "properties": {
+              "privateIPAddress": "",
+              "privateIPAllocationMethod": "Dynamic",
+              "publicIPAddress": {
+                  "id": "[parameters('monitoringPublicIPResourceId')]"
+              },
+              "subnet": {
+                "id": "[concat(parameters('virtualNetworkResourceId'), '/subnets/', parameters('monitoringTierSubnetName'))]"
+              },
+              "loadBalancerBackendAddressPools": [],
               "loadBalancerInboundNatRules": []
             }
           }
