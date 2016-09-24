@@ -80,7 +80,7 @@
               },
               "loadBalancerBackendAddressPools": [
                 {
-                  "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('webLoadBalancerName'), '/backendAddressPools/', parameters('webLoadBalancerName'),'.AddressPool')]"
+                  "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('webLoadBalancerName')), concat('/backendAddressPools/', parameters('webLoadBalancerName'),'.AddressPool')]"
                 }
               ],
               "loadBalancerInboundNatRules": []
@@ -123,7 +123,7 @@
               },
               "loadBalancerBackendAddressPools": [
                 {
-                  "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('appLoadBalancerName'), '/backendAddressPools/', parameters('appLoadBalancerName'),'.AddressPool')]"
+                  "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('appLoadBalancerName')), concat('/backendAddressPools/', parameters('appLoadBalancerName'),'.AddressPool')]"
                 }
               ],
               "loadBalancerInboundNatRules": []
@@ -166,7 +166,7 @@
               },
               "loadBalancerBackendAddressPools": [
                 {
-                  "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('databaseLoadBalancerName'), '/backendAddressPools/', parameters('databaseLoadBalancerName'),'.AddressPool')]"
+                  "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('databaseLoadBalancerName')), concat('/backendAddressPools/', parameters('databaseLoadBalancerName'),'.AddressPool')]"
                 }
               ],
               "loadBalancerInboundNatRules": []
