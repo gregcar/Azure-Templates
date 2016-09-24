@@ -5,7 +5,7 @@
     "location": {
       "type": "string"
     },
-    "virtualNetworkName": {
+    "virtualNetworkResourceId": {
       "type": "string"
     },
     "webTierName": {
@@ -29,7 +29,7 @@
     "appTierSubnetName": {
       "type": "string"
     },
-    "appLoadBalancerName": {
+    "appLoadBalancerResourceId": {
       "type": "string"
     },
     "appTierNicPrefix": {
@@ -44,7 +44,7 @@
     "databaseTierSubnetName": {
       "type": "string"
     },
-    "databaseLoadBalancerName": {
+    "databaseLoadBalancerResourceId": {
       "type": "string"
     },
     "databaseTierNicPrefix": {
@@ -76,7 +76,7 @@
               "privateIPAddress": "",
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
-                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName')), concat('/subnets/', parameters('webTierSubnetName'))]"
+                "id": "[concat(parameters('virtualNetworkResourceId'), '/subnets/', parameters('webTierSubnetName'))]"
               },
               "loadBalancerBackendAddressPools": [
                 {
@@ -119,11 +119,11 @@
               "privateIPAddress": "",
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
-                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName')), concat('/subnets/', parameters('appTierSubnetName'))]"
+                "id": "[concat(parameters('virtualNetworkResourceId'), '/subnets/', parameters('appTierSubnetName'))]"
               },
               "loadBalancerBackendAddressPools": [
                 {
-                  "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('appLoadBalancerName')), concat('/backendAddressPools/', parameters('appLoadBalancerName'),'.AddressPool')]"
+                  "id": "[concat(parameters('appLoadBalancerResourceId'), '/backendAddressPools/', parameters('appLoadBalancerName'), '.AddressPool')]"
                 }
               ],
               "loadBalancerInboundNatRules": []
@@ -162,11 +162,11 @@
               "privateIPAddress": "",
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
-                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName')), concat('/subnets/', parameters('databaseTierSubnetName'))]"
+                "id": "[concat(parameters('virtualNetworkResourceId'), '/subnets/', parameters('databaseTierSubnetName'))]"
               },
               "loadBalancerBackendAddressPools": [
                 {
-                  "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('databaseLoadBalancerName')), concat('/backendAddressPools/', parameters('databaseLoadBalancerName'),'.AddressPool')]"
+                  "id": "[concat(parameters('databaseLoadBalancerResourceId'), '/backendAddressPools/', parameters('databaseLoadBalancerName'), '.AddressPool')]"
                 }
               ],
               "loadBalancerInboundNatRules": []
