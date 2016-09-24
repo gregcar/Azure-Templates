@@ -17,6 +17,9 @@
     "webLoadBalancerResourceId": {
       "type": "string"
     },
+    "webLoadBalancerAddressPool": {
+      "type": "string"
+    },
     "webTierNicPrefix": {
       "type": "string"
     },
@@ -32,6 +35,9 @@
     "appLoadBalancerResourceId": {
       "type": "string"
     },
+    "appLoadBalancerAddressPool": {
+      "type": "string"
+    },
     "appTierNicPrefix": {
       "type": "string"
     },
@@ -45,6 +51,9 @@
       "type": "string"
     },
     "databaseLoadBalancerResourceId": {
+      "type": "string"
+    },
+    "databaseLoadBalancerAddressPool": {
       "type": "string"
     },
     "databaseTierNicPrefix": {
@@ -80,7 +89,7 @@
               },
               "loadBalancerBackendAddressPools": [
                 {
-                  "id": "[concat(parameters('webLoadBalancerResourceId'), '/backendAddressPools/', parameters('webLoadBalancerName'), '.AddressPool')]"
+                  "id": "[concat(parameters('webLoadBalancerResourceId'), '/backendAddressPools/', parameters('webLoadBalancerAddressPool'))]"
                 }
               ],
               "loadBalancerInboundNatRules": []
@@ -121,7 +130,7 @@
               },
               "loadBalancerBackendAddressPools": [
                 {
-                  "id": "[concat(parameters('appLoadBalancerResourceId'), '/backendAddressPools/', parameters('appLoadBalancerName'), '.AddressPool')]"
+                  "id": "[concat(parameters('appLoadBalancerResourceId'), '/backendAddressPools/', parameters('appLoadBalancerAddressPool'))]"
                 }
               ],
               "loadBalancerInboundNatRules": []
@@ -162,7 +171,7 @@
               },
               "loadBalancerBackendAddressPools": [
                 {
-                  "id": "[concat(parameters('databaseLoadBalancerResourceId'), '/backendAddressPools/', parameters('databaseLoadBalancerName'), '.AddressPool')]"
+                  "id": "[concat(parameters('databaseLoadBalancerResourceId'), '/backendAddressPools/', parameters('databaseLoadBalancerAddressPool'))]"
                 }
               ],
               "loadBalancerInboundNatRules": []
