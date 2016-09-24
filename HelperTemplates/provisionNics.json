@@ -8,10 +8,10 @@
     "virtualNetworkName": {
       "type": "string"
     },
-    "subnets": {
-      "type": "object"
-    },
     "webTierName": {
+      "type": "string"
+    },
+    "webTierSubnetName": {
       "type": "string"
     },
     "webLoadBalancerName": {
@@ -26,6 +26,9 @@
     "appTierName": {
       "type": "string"
     },
+    "appTierSubnetName": {
+      "type": "string"
+    },
     "appLoadBalancerName": {
       "type": "string"
     },
@@ -36,6 +39,9 @@
       "type": "int"
     },
     "databaseTierName": {
+      "type": "string"
+    },
+    "databaseTierSubnetName": {
       "type": "string"
     },
     "databaseLoadBalancerName": {
@@ -70,7 +76,7 @@
               "privateIPAddress": "",
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
-                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName')), concat('/subnets/', parameters('subnets').frontEnd))]"
+                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName')), concat('/subnets/', parameters('webTierSubnetName')]"
               },
               "loadBalancerBackendAddressPools": [
                 {
@@ -113,7 +119,7 @@
               "privateIPAddress": "",
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
-                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName')), concat('/subnets/', parameters('subnets').backEnd))]"
+                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName')), concat('/subnets/', parameters('appTierSubnetName'))]"
               },
               "loadBalancerBackendAddressPools": [
                 {
@@ -156,7 +162,7 @@
               "privateIPAddress": "",
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
-                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName')), concat('/subnets/', parameters('subnets').database))]"
+                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName')), concat('/subnets/', parameters('databaseTierSubnetName'))]"
               },
               "loadBalancerBackendAddressPools": [
                 {
