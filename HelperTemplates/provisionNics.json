@@ -14,7 +14,7 @@
     "webTierSubnetName": {
       "type": "string"
     },
-    "webLoadBalancerName": {
+    "webLoadBalancerResourceId": {
       "type": "string"
     },
     "webTierNicPrefix": {
@@ -54,9 +54,6 @@
       "type": "int"
     }
   },
-  "variables": {
-    "webLoadBalancerId": "[resourceId('Microsoft.Network/loadBalancers', parameters('webLoadBalancerName')]"
-  },
   "resources": [
     {
       "comments": "Web Tier Network Interfaces",
@@ -83,7 +80,7 @@
               },
               "loadBalancerBackendAddressPools": [
                 {
-                  "id": "[concat(variables('webLoadBalancerId'), '/backendAddressPools/', parameters('webLoadBalancerName'), '.AddressPool')]"
+                  "id": "[concat(parameters('webLoadBalancerResourceId'), '/backendAddressPools/', parameters('webLoadBalancerName'), '.AddressPool')]"
                 }
               ],
               "loadBalancerInboundNatRules": []
@@ -98,7 +95,7 @@
       "resources": [],
       "dependsOn": [
         "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
-        "[resourceId('Microsoft.Network/loadBalancers', parameters('webLoadBalancerName')]"
+        "[parameters('webLoadBalancerResourceId')]"
       ]
     },
     {
