@@ -94,8 +94,6 @@
       },
       "resources": [],
       "dependsOn": [
-        "[parameters('virtualNetworkResourceId')]",
-        "[parameters('webLoadBalancerResourceId')]"
       ]
     },
     {
@@ -137,8 +135,6 @@
       },
       "resources": [],
       "dependsOn": [
-        "[parameters('virtualNetworkResourceId')]",
-        "[parameters('appLoadBalancerResourceId')]"
       ]
     },
     {
@@ -180,8 +176,6 @@
       },
       "resources": [],
       "dependsOn": [
-        "[parameters('virtualNetworkResourceId')]",
-        "[parameters('databaseLoadBalancerResourceId')]"
       ]
     }
   ]
