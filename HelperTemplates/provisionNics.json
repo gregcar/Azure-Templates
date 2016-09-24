@@ -76,11 +76,11 @@
               "privateIPAddress": "",
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
-                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName')), concat('/subnets/', parameters('webTierSubnetName')]"
+                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName')), concat('/subnets/', parameters('webTierSubnetName'))]"
               },
               "loadBalancerBackendAddressPools": [
                 {
-                  "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('webLoadBalancerName')), concat('/backendAddressPools/', parameters('webLoadBalancerName'),'.AddressPool')]"
+                  "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('webLoadBalancerName')), concat('/backendAddressPools/', parameters('webLoadBalancerName')'.AddressPool'))]"
                 }
               ],
               "loadBalancerInboundNatRules": []
