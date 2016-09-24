@@ -94,7 +94,7 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
+        "[parameters('virtualNetworkResourceId')]",
         "[parameters('webLoadBalancerResourceId')]"
       ]
     },
@@ -137,8 +137,8 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
-        "[resourceId('Microsoft.Network/loadBalancers', parameters('appLoadBalancerName')]"
+        "[parameters('virtualNetworkResourceId')]",
+        "[parameters('appLoadBalancerResourceId')]"
       ]
     },
     {
@@ -180,8 +180,8 @@
       },
       "resources": [],
       "dependsOn": [
-        "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
-        "[resourceId('Microsoft.Network/loadBalancers', parameters('databaseLoadBalancerName')]"
+        "[parameters('virtualNetworkResourceId')]",
+        "[parameters('databaseLoadBalancerResourceId')]"
       ]
     }
   ]
