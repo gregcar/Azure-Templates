@@ -144,13 +144,13 @@
         "name": "[parameters('vmName')]",
         "type": "Microsoft.Compute/virtualMachines",
         "location": "[resourceGroup().location]",
-        "apiVersion": "2015-06-15",
+        "apiVersion": "2016-04-30-preview",
         "dependsOn": [
           "[concat('Microsoft.Storage/storageAccounts/', variables('storageName'))]",
           "[concat('Microsoft.Network/networkInterfaces/', variables('vmNicName'))]"
         ],
         "tags": {
-          "displayName": "VM01"
+          "displayName": "[parameters('vmName')]"
         },
         "properties": {
           "hardwareProfile": {
