@@ -116,7 +116,7 @@
         "name": "[variables('storageName')]",
         "type": "Microsoft.Storage/storageAccounts",
         "location": "[resourceGroup().location]",
-        "apiVersion": "2017-06-01",
+        "apiVersion": "2016-12-01",
         "dependsOn": [ ],
         "tags": {
           "displayName": "[variables('storageName')]"
