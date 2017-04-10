@@ -107,7 +107,8 @@
       "vmVnetID": "[resourceId(parameters('existingVirtualNetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks', parameters('existingVirtualNetworkName'))]",
       "vmSubnetRef": "[concat(variables('VMVnetID'), '/subnets/', parameters('subnetName'))]",
       "vmNicName": "[concat(parameters('VMName'), '-nic')]",
-      "vmIPName": "[concat(parameters('VMName'), '-pulbicip')]"
+      "vmIPName": "[concat(parameters('VMName'), '-pulbicip')]",
+      "osDiskName": "[concat(parameters('VMName'), '-osDisk')]"
     },
     "resources": [
       {
@@ -180,8 +181,14 @@
               "version": "latest"
             },
             "osDisk": {
-            "createOption": "FromImage"
-            }
+              "osType": "Windows",
+              "name": "[variables('osDiskName')]",
+              "createOption": "FromImage",
+              "caching": "ReadWrite",
+              "managedDisk": {
+                "storageAccountType": "Premium_LRS"
+              },
+            "diskSizeGB": 127
           },
           "networkProfile": {
             "networkInterfaces": [
