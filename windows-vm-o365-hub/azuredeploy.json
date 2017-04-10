@@ -92,7 +92,6 @@
       "storageName": "[concat('diagsa', uniquestring(resourceGroup().id))]",
       "vmImagePublisher": "MicrosoftWindowsServer",
       "vmImageOffer": "Windows-HUB",
-      "vmOSDiskName": "osDisk",
       "vmVnetID": "[resourceId(parameters('existingVirtualNetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks', parameters('existingVirtualNetworkName'))]",
       "vmSubnetRef": "[concat(variables('VMVnetID'), '/subnets/', parameters('subnetName'))]",
       "vmNicName": "[concat(parameters('VMName'), '-nic')]",
