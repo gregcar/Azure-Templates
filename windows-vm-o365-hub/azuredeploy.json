@@ -122,8 +122,12 @@
           "displayName": "[variables('storageName')]"
         },
         "properties": {
-          "accountType": "Standard_LRS"
-        }
+          "accessTier": "Hot"
+        },
+        "sku": {
+            "name": "Standard_LRS"
+        },   
+        "kind": "Storage"
       },
       {
         "name": "[variables('vmNicName')]",
