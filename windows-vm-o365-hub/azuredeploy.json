@@ -121,12 +121,8 @@
         "tags": {
           "displayName": "[variables('storageName')]"
         },
-        "properties": {
-          "accessTier": "Hot"
-        },
-        "sku": {
-            "name": "Standard_LRS"
-        },   
+        "properties": { },
+        "sku": { "name": "Standard_LRS" },   
         "kind": "Storage"
       },
       {
