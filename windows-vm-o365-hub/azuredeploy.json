@@ -50,6 +50,12 @@
         "description": "Name of the existing VNET"
       }
     },
+    "existingVirtualNetworkResourceGroupName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the resource group that contains the existing VNET"
+      }
+    },
     "subnetName": {
       "type": "string",
       "metadata": {
@@ -87,7 +93,7 @@
       "vmImagePublisher": "MicrosoftWindowsServer",
       "vmImageOffer": "Windows-HUB",
       "vmOSDiskName": "osDisk",
-      "vmVnetID": "[resourceId('Microsoft.Network/virtualNetworks', parameters('existingVirtualNetworkName'))]",
+      "vmVnetID": "[resourceId(parameters('existingVirtualNetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks', parameters('existingVirtualNetworkName'))]",
       "vmSubnetRef": "[concat(variables('VMVnetID'), '/subnets/', parameters('subnetName'))]",
       "vmNicName": "[concat(parameters('VMName'), '-nic')]",
       "vmIPName": "[concat(parameters('VMName'), '-pulbicip')]"
