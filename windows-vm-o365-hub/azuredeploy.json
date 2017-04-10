@@ -97,8 +97,8 @@
           "Offer":"Windows-HUB"
         },
         "Windows-10-N-x64":{
-          "Publisher": "MicrosoftWindowsServer",
-          "Offer":"Windows-HUB"
+          "Publisher": "MicrosoftVisualStudio",
+          "Offer":"Windows"
         }
       },
       "currentImageSettings":"[variables('vmImageSettings')[parameters('vmOSVersion')]]",
