@@ -1,0 +1,229 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.1",
+  "parameters": {
+    "vmName": {
+      "type": "string",
+      "defaultValue": "O365VM",
+      "metadata": {
+        "description": "Local name for the VM can be whatever you want"
+      }
+    },
+    "vmAdminUserName": {
+      "type": "string",
+      "metadata": {
+        "description": "VM admin user name"
+      }
+    },
+    "vmAdminPassword": {
+      "type": "securestring",
+      "metadata": {
+        "description": "VM admin password. The supplied password must be between 8-123 characters long and must satisfy at least 3 of password complexity requirements from the following: 1) Contains an uppercase character 2) Contains a lowercase character 3) Contains a numeric digit 4) Contains a special character."
+      }
+    },
+    "vmSize": {
+      "type": "string",
+      "metadata": {
+        "description": "Desired Size of the VM."
+      },
+      "defaultValue": "Standard_F2s"
+    },
+    "vmOSVersion": {
+      "type": "string",
+      "defaultValue": "Windows-10-HUB",
+      "allowedValues": [
+        "Windows-10-HUB"
+      ],
+      "metadata": {
+        "description": "Which version of Windows would like to deploy"
+      }
+    },
+    "dnsLabelPrefix": {
+      "type": "string",
+      "metadata": {
+      "description": "DNS Label for the Public IP. Must be lowercase. It should match with the following regular expression: ^[a-z][a-z0-9-]{1,61}[a-z0-9]$ or it will raise an error."
+      }
+    },
+    "existingVirtualNetworkName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the existing VNET"
+      }
+    },
+    "subnetName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the subnet in the virtual network you want to use"
+      }
+    },
+    "officeVersion": {
+      "type": "string",
+      "defaultValue": "Office2016",
+      "allowedValues": [
+        "Office2016",
+        "Office2013"
+      ],
+       "metadata": {
+        "description": "Which version of Office would you would like to deploy"
+      }
+    },    
+    "setupOfficeScriptFileName": {
+      "type": "string",
+      "defaultValue": "DeployO365SilentWithVersion.ps1",
+      "metadata": {
+        "description": "PowerShell script name to execute"
+      }
+    },
+    "_artifactsLocation": {
+      "type": "string",
+      "defaultValue": "https://raw.githubusercontent.com/gregcar/azure-templates/master/windows-vm-o365-hub/scripts/",
+      "metadata": {
+        "description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated."
+      } 
+    }
+  },
+    "variables": {
+      "storageName": "[concat(uniquestring(resourceGroup().id), 'standarddiagsa')]",
+      "vmImagePublisher": "MicrosoftWindowsServer",
+      "vmImageOffer": "Windows-HUB",
+      "vmOSDiskName": "osDisk",
+      "vmVnetID": "[resourceId('Microsoft.Network/virtualNetworks', parameters('existingVirtualNetworkName'))]",
+      "vmSubnetRef": "[concat(variables('VMVnetID'), '/subnets/', parameters('subnetName'))]",
+      "vmNicName": "[concat(parameters('VMName'), '-nic')]",
+      "vmIPName": "[concat(parameters('VMName'), '-pulbicip')]"
+    },
+    "resources": [
+      {
+        "name": "[variables('storageName')]",
+        "type": "Microsoft.Storage/storageAccounts",
+        "location": "[resourceGroup().location]",
+        "apiVersion": "2015-06-15",
+        "dependsOn": [ ],
+        "tags": {
+          "displayName": "[variables('storageName')]"
+        },
+        "kind": "Storage",
+        "properties": {
+          "accountType": "Standard_LRS"
+        }
+      },
+      {
+        "name": "[variables('vmNicName')]",
+        "type": "Microsoft.Network/networkInterfaces",
+        "location": "[resourceGroup().location]",
+        "apiVersion": "2015-06-15",
+        "dependsOn": [
+          "[concat('Microsoft.Network/publicIPAddresses/', variables('vmIPName'))]"
+        ],
+        "tags": {
+          "displayName": "[variables('vmNicName')]"
+        },
+        "properties": {
+          "ipConfigurations": [
+            {
+              "name": "ipconfig1",
+              "properties": {
+                "privateIPAllocationMethod": "Dynamic",
+                "subnet": {
+                  "id": "[variables('vmSubnetRef')]"
+                },
+                "publicIPAddress": {
+                  "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('vmIPName'))]"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "[parameters('vmName')]",
+        "type": "Microsoft.Compute/virtualMachines",
+        "location": "[resourceGroup().location]",
+        "apiVersion": "2015-06-15",
+        "dependsOn": [
+          "[concat('Microsoft.Storage/storageAccounts/', variables('storageName'))]",
+          "[concat('Microsoft.Network/networkInterfaces/', variables('vmNicName'))]"
+        ],
+        "tags": {
+          "displayName": "VM01"
+        },
+        "properties": {
+          "hardwareProfile": {
+            "vmSize": "[parameters('vmSize')]"
+          },
+          "osProfile": {
+            "computerName": "[parameters('vmName')]",
+            "adminUsername": "[parameters('vmAdminUsername')]",
+            "adminPassword": "[parameters('vmAdminPassword')]"
+          },
+          "storageProfile": {
+            "imageReference": {
+              "publisher": "[variables('vmImagePublisher')]",
+              "offer": "[variables('vmImageOffer')]",
+              "sku": "[parameters('vmOSVersion')]",
+              "version": "latest"
+            },
+            "osDisk": {
+            "createOption": "FromImage"
+            }
+          },
+          "networkProfile": {
+            "networkInterfaces": [
+              {
+                "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('vmNicName'))]"
+              }
+            ]
+          }
+        },
+        "resources": [
+          {
+            "name": "SetupOffice",
+            "type": "extensions",
+            "location": "[resourceGroup().location]",
+            "apiVersion": "2015-06-15",
+            "dependsOn": [
+              "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]"
+            ],
+            "tags": {
+              "displayName": "SetupOffice"
+            },
+            "properties": {
+              "publisher": "Microsoft.Azure.Extensions",
+              "type": "CustomScriptExtension",
+              "typeHandlerVersion": "2.0",
+              "autoUpgradeMinorVersion": true,
+              "settings": {
+                "fileUris": [
+                  "[concat(parameters('_artifactsLocation'), parameters('setupOfficeScriptFileName'))]",
+                  "https://raw.githubusercontent.com/officedev/Office-IT-Pro-Deployment-Scripts/master/Office-ProPlus-Deployment/Deploy-OfficeClickToRun/DefaultConfiguration.xml",
+                  "https://raw.githubusercontent.com/officedev/Office-IT-Pro-Deployment-Scripts/master/Office-ProPlus-Deployment/Deploy-OfficeClickToRun/Office2013Setup.exe",
+                  "https://raw.githubusercontent.com/officedev/Office-IT-Pro-Deployment-Scripts/master/Office-ProPlus-Deployment/Deploy-OfficeClickToRun/Office2016Setup.exe",
+                  "https://raw.githubusercontent.com/officedev/Office-IT-Pro-Deployment-Scripts/master/Office-ProPlus-Deployment/Deploy-OfficeClickToRun/Edit-OfficeConfigurationFile.ps1",
+                  "https://raw.githubusercontent.com/officedev/Office-IT-Pro-Deployment-Scripts/master/Office-ProPlus-Deployment/Deploy-OfficeClickToRun/Generate-ODTConfigurationXML.ps1",
+                  "https://raw.githubusercontent.com/officedev/Office-IT-Pro-Deployment-Scripts/master/Office-ProPlus-Deployment/Deploy-OfficeClickToRun/Install-OfficeClickToRun.ps1"
+                ],
+                "commandToExecute": "[concat('powershell -ExecutionPolicy bypass -File ', parameters('setupOfficeScriptFileName'),' -OfficeVersion ', parameters('officeVersion'))]"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "[variables('vmIPName')]",
+        "type": "Microsoft.Network/publicIPAddresses",
+        "location": "[resourceGroup().location]",
+        "apiVersion": "2015-06-15",
+        "dependsOn": [ ],
+        "tags": {
+          "displayName": "[variables('vmIPName')]"
+        },
+        "properties": {
+          "publicIPAllocationMethod": "Dynamic",
+          "dnsSettings": {
+            "domainNameLabel": "[parameters('dnsLabelPrefix')]"
+          }
+        }
+      }
+    ],
+    "outputs": { }
+  }
