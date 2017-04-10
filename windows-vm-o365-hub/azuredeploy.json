@@ -108,7 +108,8 @@
       "vmSubnetRef": "[concat(variables('VMVnetID'), '/subnets/', parameters('subnetName'))]",
       "vmNicName": "[concat(parameters('VMName'), '-nic')]",
       "vmIPName": "[concat(parameters('VMName'), '-pulbicip')]",
-      "osDiskName": "[concat(parameters('VMName'), '-osDisk')]"
+      "osDiskName": "[concat(parameters('VMName'), '-osDisk')]",
+      "dnsName": "[concat(parameters('dnsLabelPrefix'), '-', parameters('VMName'))]"
     },
     "resources": [
       {
@@ -189,6 +190,7 @@
                 "storageAccountType": "Premium_LRS"
               },
             "diskSizeGB": 127
+            }
           },
           "networkProfile": {
             "networkInterfaces": [
@@ -243,7 +245,7 @@
         "properties": {
           "publicIPAllocationMethod": "Dynamic",
           "dnsSettings": {
-            "domainNameLabel": "[parameters('dnsLabelPrefix')]"
+            "domainNameLabel": "[variables('dnsName')]"
           }
         }
       }
