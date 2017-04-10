@@ -32,7 +32,8 @@
       "type": "string",
       "defaultValue": "Windows-10-HUB",
       "allowedValues": [
-        "Windows-10-HUB"
+        "Windows-10-HUB",
+        "Windows-10-N-x64"
       ],
       "metadata": {
         "description": "Which version of Windows would like to deploy"
@@ -90,8 +91,19 @@
   },
     "variables": {
       "storageName": "[concat('diagsa', uniquestring(resourceGroup().id))]",
-      "vmImagePublisher": "MicrosoftWindowsServer",
-      "vmImageOffer": "Windows-HUB",
+      "vmImageSettings":{
+        "Windows-10-HUB":{
+          "Publisher": "MicrosoftWindowsServer",
+          "Offer":"Windows-HUB"
+        },
+        "Windows-10-N-x64":{
+          "Publisher": "MicrosoftWindowsServer",
+          "Offer":"Windows-HUB"
+        }
+      },
+      "currentImageSettings":"[variables('vmImageSettings')[parameters('vmOSVersion')]]",
+      "vmImagePublisher": "[variables('currentImageSettings').Offer]",
+      "vmImageOffer": "[variables('currentImageSettings').Publisher]",
       "vmVnetID": "[resourceId(parameters('existingVirtualNetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks', parameters('existingVirtualNetworkName'))]",
       "vmSubnetRef": "[concat(variables('VMVnetID'), '/subnets/', parameters('subnetName'))]",
       "vmNicName": "[concat(parameters('VMName'), '-nic')]",
