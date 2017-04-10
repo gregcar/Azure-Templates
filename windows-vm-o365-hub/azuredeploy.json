@@ -90,7 +90,6 @@
     }
   },
     "variables": {
-      "apiVersion":"2017-03-30",
       "storageName": "[concat('diagsa', uniquestring(resourceGroup().id))]",
       "vmImageSettings":{
         "Windows-10-HUB":{
@@ -130,7 +129,7 @@
         "name": "[variables('vmNicName')]",
         "type": "Microsoft.Network/networkInterfaces",
         "location": "[resourceGroup().location]",
-        "apiVersion": "[variables('apiVersion')]",
+        "apiVersion": "2017-04-01",
         "dependsOn": [
           "[concat('Microsoft.Network/publicIPAddresses/', variables('vmIPName'))]"
         ],
@@ -158,7 +157,7 @@
         "name": "[parameters('vmName')]",
         "type": "Microsoft.Compute/virtualMachines",
         "location": "[resourceGroup().location]",
-        "apiVersion": "[variables('apiVersion')]",
+        "apiVersion": "2017-03-30",
         "dependsOn": [
           "[concat('Microsoft.Storage/storageAccounts/', variables('storageName'))]",
           "[concat('Microsoft.Network/networkInterfaces/', variables('vmNicName'))]"
@@ -206,7 +205,7 @@
             "name": "SetupOffice",
             "type": "extensions",
             "location": "[resourceGroup().location]",
-            "apiVersion": "[variables('apiVersion')]",
+            "apiVersion": "2017-03-30",
             "dependsOn": [
               "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]"
             ],
@@ -238,7 +237,7 @@
         "name": "[variables('vmIPName')]",
         "type": "Microsoft.Network/publicIPAddresses",
         "location": "[resourceGroup().location]",
-        "apiVersion": "[variables('apiVersion')]",
+        "apiVersion": "2017-04-01",
         "dependsOn": [ ],
         "tags": {
           "displayName": "[variables('vmIPName')]"
