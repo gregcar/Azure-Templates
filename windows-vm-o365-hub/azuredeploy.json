@@ -102,7 +102,6 @@
         "tags": {
           "displayName": "[variables('storageName')]"
         },
-        "kind": "Storage",
         "properties": {
           "accountType": "Standard_LRS"
         }
