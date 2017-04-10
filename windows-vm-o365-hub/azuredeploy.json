@@ -90,6 +90,7 @@
     }
   },
     "variables": {
+      "apiVersion":"2017-03-30",
       "storageName": "[concat('diagsa', uniquestring(resourceGroup().id))]",
       "vmImageSettings":{
         "Windows-10-HUB":{
@@ -116,7 +117,7 @@
         "name": "[variables('storageName')]",
         "type": "Microsoft.Storage/storageAccounts",
         "location": "[resourceGroup().location]",
-        "apiVersion": "2015-06-15",
+        "apiVersion": "[variables('apiVersion')]",
         "dependsOn": [ ],
         "tags": {
           "displayName": "[variables('storageName')]"
@@ -129,7 +130,7 @@
         "name": "[variables('vmNicName')]",
         "type": "Microsoft.Network/networkInterfaces",
         "location": "[resourceGroup().location]",
-        "apiVersion": "2015-06-15",
+        "apiVersion": "[variables('apiVersion')]",
         "dependsOn": [
           "[concat('Microsoft.Network/publicIPAddresses/', variables('vmIPName'))]"
         ],
@@ -157,7 +158,7 @@
         "name": "[parameters('vmName')]",
         "type": "Microsoft.Compute/virtualMachines",
         "location": "[resourceGroup().location]",
-        "apiVersion": "2016-04-30-preview",
+        "apiVersion": "[variables('apiVersion')]",
         "dependsOn": [
           "[concat('Microsoft.Storage/storageAccounts/', variables('storageName'))]",
           "[concat('Microsoft.Network/networkInterfaces/', variables('vmNicName'))]"
@@ -205,7 +206,7 @@
             "name": "SetupOffice",
             "type": "extensions",
             "location": "[resourceGroup().location]",
-            "apiVersion": "2015-06-15",
+            "apiVersion": "[variables('apiVersion')]",
             "dependsOn": [
               "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]"
             ],
@@ -213,9 +214,9 @@
               "displayName": "SetupOffice"
             },
             "properties": {
-              "publisher": "Microsoft.Azure.Extensions",
+              "publisher": "Microsoft.Compute",
               "type": "CustomScriptExtension",
-              "typeHandlerVersion": "2.0",
+              "typeHandlerVersion": "1.8",
               "autoUpgradeMinorVersion": true,
               "settings": {
                 "fileUris": [
@@ -237,7 +238,7 @@
         "name": "[variables('vmIPName')]",
         "type": "Microsoft.Network/publicIPAddresses",
         "location": "[resourceGroup().location]",
-        "apiVersion": "2015-06-15",
+        "apiVersion": "[variables('apiVersion')]",
         "dependsOn": [ ],
         "tags": {
           "displayName": "[variables('vmIPName')]"
