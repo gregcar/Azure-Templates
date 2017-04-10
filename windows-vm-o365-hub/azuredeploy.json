@@ -83,7 +83,7 @@
     }
   },
     "variables": {
-      "storageName": "[concat(uniquestring(resourceGroup().id), 'standarddiagsa')]",
+      "storageName": "[concat('diagsa', uniquestring(resourceGroup().id))]",
       "vmImagePublisher": "MicrosoftWindowsServer",
       "vmImageOffer": "Windows-HUB",
       "vmOSDiskName": "osDisk",
