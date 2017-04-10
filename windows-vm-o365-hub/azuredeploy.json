@@ -102,8 +102,8 @@
         }
       },
       "currentImageSettings":"[variables('vmImageSettings')[parameters('vmOSVersion')]]",
-      "vmImagePublisher": "[variables('currentImageSettings').Offer]",
-      "vmImageOffer": "[variables('currentImageSettings').Publisher]",
+      "vmImagePublisher": "[variables('currentImageSettings').Publisher]",
+      "vmImageOffer": "[variables('currentImageSettings').Offer]",
       "vmVnetID": "[resourceId(parameters('existingVirtualNetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks', parameters('existingVirtualNetworkName'))]",
       "vmSubnetRef": "[concat(variables('VMVnetID'), '/subnets/', parameters('subnetName'))]",
       "vmNicName": "[concat(parameters('VMName'), '-nic')]",
