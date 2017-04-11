@@ -73,12 +73,19 @@
        "metadata": {
         "description": "Which version of Office would you would like to deploy"
       }
-    },    
+    },
+    "updateWindowsScriptFileName": {
+      "type": "string",
+      "defaultValue": "UpdateWindows10.ps1",
+      "metadata": {
+        "description": "PowerShell script name to execute windows update"
+      }
+    },   
     "setupOfficeScriptFileName": {
       "type": "string",
       "defaultValue": "DeployO365SilentWithVersion.ps1",
       "metadata": {
-        "description": "PowerShell script name to execute"
+        "description": "PowerShell script name to execute Office install"
       }
     },
     "_artifactsLocation": {
@@ -201,6 +208,30 @@
           }
         },
         "resources": [
+          {
+            "name": "UpdateWindows",
+            "type": "extensions",
+            "location": "[resourceGroup().location]",
+            "apiVersion": "2017-03-30",
+            "dependsOn": [
+              "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]"
+            ],
+            "tags": {
+              "displayName": "UpdateWindows"
+            },
+            "properties": {
+              "publisher": "Microsoft.Compute",
+              "type": "CustomScriptExtension",
+              "typeHandlerVersion": "1.8",
+              "autoUpgradeMinorVersion": true,
+              "settings": {
+                "fileUris": [
+                  "[concat(parameters('_artifactsLocation'), parameters('updateWindowsScriptFileName'))]"
+                ],
+                "commandToExecute": "[concat('powershell -ExecutionPolicy bypass -File ', parameters('updateWindowsScriptFileName'))]"
+              }
+            }
+          },
           {
             "name": "SetupOffice",
             "type": "extensions",
