@@ -98,6 +98,7 @@
   },
     "variables": {
       "storageName": "[concat('diagsa', uniquestring(resourceGroup().id))]",
+      "storageAccountUri" : "[concat('https://', variables('storageName'), '.blob.core.windows.net/')]",
       "vmImageSettings":{
         "Windows-10-HUB":{
           "Publisher": "MicrosoftWindowsServer",
@@ -205,6 +206,12 @@
                 "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('vmNicName'))]"
               }
             ]
+          },
+          "diagnosticsProfile": {
+            "bootDiagnostics": {
+              "enabled": true,
+              "storageUri": "[variables('storageAccountUri')]"
+            }
           }
         },
         "resources": [
