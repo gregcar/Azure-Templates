@@ -73,14 +73,7 @@
        "metadata": {
         "description": "Which version of Office would you would like to deploy"
       }
-    },
-    "updateWindowsScriptFileName": {
-      "type": "string",
-      "defaultValue": "UpdateWindows10.ps1",
-      "metadata": {
-        "description": "PowerShell script name to execute windows update"
-      }
-    },   
+    },  
     "setupOfficeScriptFileName": {
       "type": "string",
       "defaultValue": "DeployO365SilentWithVersion.ps1",
