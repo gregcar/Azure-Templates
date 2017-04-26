@@ -1,10 +1,6 @@
 param([Parameter(Mandatory=$false)][string]$OfficeVersion = "Office2016")
 
-configureRemoteSettings
-installOffice
-updateWindows
-
-function configureRemoteSettings{
+Process{
   # Enable Remote Desktop
   Write-Host
   Write-Host "`t Configuring remote desktop settings. Please wait ..." -ForeGroundColor "Yellow"
@@ -12,10 +8,8 @@ function configureRemoteSettings{
   (Get-WmiObject -Class "Win32_TSGeneralSetting" -Namespace root\cimv2\TerminalServices -Filter "TerminalName='RDP-tcp'").SetUserAuthenticationRequired(0) | Out-Null
   Get-NetFirewallRule -DisplayName "Remote Desktop*" | Set-NetFirewallRule -enabled true
   NET LOCALGROUP "Remote Desktop Users" "Authenticated Users" /add
-}
-
-function installOffice{
-#  Office ProPlus Click-To-Run Deployment Script example
+  
+  #  Office ProPlus Click-To-Run Deployment Script example
 #
 #  This script demonstrates how utilize the scripts in OfficeDev/Office-IT-Pro-Deployment-Scripts repository together to create
 #  Office ProPlus Click-To-Run deployment script that will be adaptive to the configuration of the computer it is run from
@@ -46,9 +40,8 @@ function installOffice{
   Generate-ODTConfigurationXml -Languages AllInUseLanguages -TargetFilePath $targetFilePath | Set-ODTAdd -Version $NULL | Set-ODTDisplay -AcceptEULA $true -Level None | Install-OfficeClickToRun -OfficeVersion $OfficeVersion
 
   # Configuration.xml file for Click-to-Run for Office 365 products reference. https://technet.microsoft.com/en-us/library/JJ219426.aspx
-}
 
-function updateWindows{
+  #Windows Update
   $Today = Get-Date
 
   $UpdateCollection = New-Object -ComObject Microsoft.Update.UpdateColl
@@ -129,3 +122,5 @@ function updateWindows{
     }
   }
 }
+
+
