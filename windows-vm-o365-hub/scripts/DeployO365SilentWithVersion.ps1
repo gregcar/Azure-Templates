@@ -1,16 +1,27 @@
+param([Parameter(Mandatory=$false)][string]$OfficeVersion = "Office2016")
+
+configureRemoteSettings
+installOffice
+updateWindows
+
+function configureRemoteSettings{
+  # Enable Remote Desktop
+  Write-Host
+  Write-Host "`t Configuring remote desktop settings. Please wait ..." -ForeGroundColor "Yellow"
+  (Get-WmiObject Win32_TerminalServiceSetting -Namespace root\cimv2\TerminalServices).SetAllowTsConnections(1,1) | Out-Null
+  (Get-WmiObject -Class "Win32_TSGeneralSetting" -Namespace root\cimv2\TerminalServices -Filter "TerminalName='RDP-tcp'").SetUserAuthenticationRequired(0) | Out-Null
+  Get-NetFirewallRule -DisplayName "Remote Desktop*" | Set-NetFirewallRule -enabled true
+  NET LOCALGROUP "Remote Desktop Users" "Authenticated Users" /add
+}
+
+function installOffice{
 #  Office ProPlus Click-To-Run Deployment Script example
 #
 #  This script demonstrates how utilize the scripts in OfficeDev/Office-IT-Pro-Deployment-Scripts repository together to create
 #  Office ProPlus Click-To-Run deployment script that will be adaptive to the configuration of the computer it is run from
+  Write-Host
+  Write-Host "`t Initialising Office install. Please wait ..." -ForeGroundColor "Yellow"
 
-param([Parameter(Mandatory=$false)][string]$OfficeVersion = "Office2016")
-
-Process {
-  configureRemoteSettings
-  installOffice
-  updateWindows
-
-function installOffice{
    $scriptPath = "."
 
   if ($PSScriptRoot) {
@@ -118,13 +129,3 @@ function updateWindows{
     }
   }
 }
-
-function configureRemoteSettings{
-  # Enable Remote Desktop
-  (Get-WmiObject Win32_TerminalServiceSetting -Namespace root\cimv2\TerminalServices).SetAllowTsConnections(1,1) | Out-Null
-  (Get-WmiObject -Class "Win32_TSGeneralSetting" -Namespace root\cimv2\TerminalServices -Filter "TerminalName='RDP-tcp'").SetUserAuthenticationRequired(0) | Out-Null
-  Get-NetFirewallRule -DisplayName "Remote Desktop*" | Set-NetFirewallRule -enabled true
-}
-
-}
-
